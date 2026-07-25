@@ -1,0 +1,3689 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>宠医训练台 - 猫急性肾损伤基础班</title>
+  <style>
+    :root {
+      --ink: #17201b;
+      --muted: #667169;
+      --line: #d9e1dc;
+      --paper: #fbfcf8;
+      --soft: #eef5ef;
+      --mint: #2f7d61;
+      --mint-dark: #1f5a46;
+      --amber: #c98723;
+      --coral: #b65045;
+      --blue: #2d6d91;
+      --white: #ffffff;
+      --shadow: 0 12px 32px rgba(28, 52, 42, .10);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    .rail {
+      background: #10271f;
+      color: #f7fff9;
+      padding: 28px 22px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 7px;
+    }
+
+    .brand strong {
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    .brand span,
+    .module-meta {
+      color: rgba(247, 255, 249, .72);
+      font-size: 13px;
+    }
+
+    .module-switch {
+      display: grid;
+      gap: 7px;
+    }
+
+    .module-switch a {
+      display: block;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: var(--radius);
+      padding: 9px 11px;
+      color: rgba(247, 255, 249, .72);
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .module-switch a:hover,
+    .module-switch a.active {
+      color: #fff;
+      background: rgba(255, 255, 255, .11);
+      border-color: rgba(255, 255, 255, .24);
+    }
+
+    .module-switch a b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .progress-box {
+      border: 1px solid rgba(255, 255, 255, .16);
+      background: rgba(255, 255, 255, .06);
+      border-radius: var(--radius);
+      padding: 15px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .meter {
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, .16);
+      overflow: hidden;
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: #79c79d;
+      transition: width .25s ease;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav button {
+      border: 0;
+      text-align: left;
+      background: transparent;
+      color: rgba(247, 255, 249, .78);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+    }
+
+    .nav button.active,
+    .nav button:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, .11);
+    }
+
+    .rail-note {
+      margin-top: auto;
+      color: rgba(247, 255, 249, .64);
+      font-size: 12px;
+      border-top: 1px solid rgba(255, 255, 255, .14);
+      padding-top: 16px;
+    }
+
+    main {
+      padding: 30px;
+      display: grid;
+      gap: 20px;
+      align-content: start;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .title-block {
+      max-width: 860px;
+    }
+
+    .eyebrow {
+      color: var(--mint-dark);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .status-card {
+      min-width: 220px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .status-card b {
+      display: block;
+      font-size: 26px;
+      color: var(--mint-dark);
+    }
+
+    .status-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .tabs button {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      border-radius: 99px;
+      padding: 8px 13px;
+      min-height: 38px;
+    }
+
+    .tabs button.active {
+      color: #fff;
+      background: var(--mint);
+      border-color: var(--mint);
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .note-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .note-block {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .note-block h3 {
+      margin: 0 0 9px;
+    }
+
+    .note-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .definition {
+      border-left: 4px solid var(--mint);
+      background: #f4faf6;
+    }
+
+    .danger-box {
+      border-left: 4px solid var(--coral);
+      background: #fff7f5;
+    }
+
+    .memory-box {
+      border-left: 4px solid var(--amber);
+      background: #fff9ed;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .matrix th,
+    .matrix td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .matrix th {
+      background: #f1f6f3;
+      color: var(--mint-dark);
+    }
+
+    .learning-map {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .map-step {
+      border: 1px solid #cfe1d7;
+      background: #f8fcf9;
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 112px;
+    }
+
+    .map-step b {
+      color: var(--mint-dark);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .map-step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .source-list {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+
+    .card h2 {
+      font-size: 22px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      border-radius: 99px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--mint-dark);
+      background: var(--soft);
+    }
+
+    .tag.warn {
+      color: #7a4311;
+      background: #fff2d9;
+    }
+
+    .tag.danger {
+      color: #8f3128;
+      background: #fde7e3;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    li + li {
+      margin-top: 7px;
+    }
+
+    .pathway {
+      display: grid;
+      gap: 12px;
+    }
+
+    .clinical-map {
+      display: grid;
+      gap: 14px;
+      padding-top: 6px;
+    }
+
+    .map-root,
+    .map-merge {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .map-question {
+      max-width: 520px;
+      margin: 0 auto;
+      border: 2px solid #8fbda9;
+      background: #f3faf6;
+      text-align: center;
+    }
+
+    .clinical-branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      position: relative;
+    }
+
+    .clinical-branches::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -14px;
+      width: 1px;
+      height: 14px;
+      background: #b9cec3;
+    }
+
+    .branch {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: #fff;
+      display: grid;
+      gap: 10px;
+      position: relative;
+    }
+
+    .branch::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      width: calc(50% + 16px);
+      height: 14px;
+      border-top: 1px solid #b9cec3;
+    }
+
+    .branch.urgent-branch {
+      border-color: #efb2aa;
+      background: #fff8f6;
+    }
+
+    .branch.analysis-branch {
+      border-color: #a9cdbd;
+      background: #f8fcf9;
+    }
+
+    .branch.urgent-branch::before {
+      right: -16px;
+      border-left: 1px solid #b9cec3;
+      border-top-left-radius: 8px;
+    }
+
+    .branch.analysis-branch::before {
+      left: -16px;
+      border-right: 1px solid #b9cec3;
+      border-top-right-radius: 8px;
+    }
+
+    .branch-title {
+      font-weight: 800;
+      color: var(--mint-dark);
+    }
+
+    .branch.urgent-branch .branch-title {
+      color: var(--coral);
+    }
+
+    .mini-steps {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mini-step {
+      border: 1px solid rgba(0, 0, 0, .08);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .72);
+      padding: 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .mini-step b {
+      font-size: 13px;
+    }
+
+    .mini-step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mermaid-map {
+      overflow-x: auto;
+      padding: 6px 2px 12px;
+    }
+
+    .tree {
+      min-width: 860px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .tree-row {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      position: relative;
+    }
+
+    .tree-row.causes {
+      gap: 12px;
+    }
+
+    .tree-node {
+      border: 1px solid #c7d7ce;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      min-height: 54px;
+      min-width: 178px;
+      max-width: 230px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.35;
+      box-shadow: 0 8px 18px rgba(28, 52, 42, .07);
+      position: relative;
+    }
+
+    .tree-node.start {
+      border-color: #9cc9b6;
+      background: #f3faf6;
+      font-weight: 800;
+    }
+
+    .tree-node.decision {
+      width: 210px;
+      min-width: 210px;
+      height: auto;
+      min-height: 58px;
+      border: 2px solid #8fbda9;
+      background: #f5fbf7;
+      box-shadow: 0 8px 18px rgba(28, 52, 42, .07);
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tree-node.decision::before {
+      content: "判断";
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: 20px;
+      padding: 0 7px;
+      margin-bottom: 4px;
+      border-radius: 99px;
+      background: #dceee5;
+      color: var(--mint-dark);
+      font-size: 11px;
+      box-shadow: none;
+      transform: none;
+      z-index: auto;
+    }
+
+    .tree-node.urgent {
+      border-color: #e3a29a;
+      background: #fff6f4;
+      color: #8f3128;
+      font-weight: 800;
+    }
+
+    .tree-node.check {
+      border-color: #9fc8b6;
+      background: #f5fbf7;
+    }
+
+    .tree-node.cause {
+      min-width: 150px;
+      max-width: 170px;
+      background: #fbfcf8;
+    }
+
+    .tree-node.action {
+      min-width: 150px;
+      max-width: 170px;
+      border-color: #e5d2ad;
+      background: #fffaf0;
+    }
+
+    .tree-line {
+      height: 24px;
+      position: relative;
+    }
+
+    .tree-line.single::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 24px;
+      border-left: 2px solid #b9cec3;
+    }
+
+    .split-line {
+      height: 34px;
+      position: relative;
+    }
+
+    .split-line::before {
+      content: "";
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      top: 12px;
+      border-top: 2px solid #b9cec3;
+    }
+
+    .split-line::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 12px;
+      border-left: 2px solid #b9cec3;
+    }
+
+    .split-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: -18px;
+      margin-bottom: -2px;
+    }
+
+    .multi-line {
+      height: 30px;
+      position: relative;
+    }
+
+    .multi-line::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 13px;
+      border-top: 2px solid #b9cec3;
+    }
+
+    .multi-line::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 13px;
+      border-left: 2px solid #b9cec3;
+    }
+
+    .tree-branches {
+      display: grid;
+      grid-template-columns: minmax(240px, .75fr) minmax(420px, 1.25fr);
+      gap: 18px;
+      align-items: start;
+      position: relative;
+    }
+
+    .tree-branches::before {
+      content: "";
+      position: absolute;
+      left: 16%;
+      right: 16%;
+      top: -18px;
+      border-top: 2px solid #b9cec3;
+    }
+
+    .tree-path {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+      position: relative;
+    }
+
+    .tree-path::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      height: 18px;
+      border-left: 2px solid #b9cec3;
+    }
+
+    .tree-path.urgent-path {
+      border-color: #efb2aa;
+      background: #fff8f6;
+    }
+
+    .tree-path.analysis-path {
+      border-color: #a9cdbd;
+      background: #f8fcf9;
+    }
+
+    .edge-label {
+      justify-self: center;
+      border-radius: 99px;
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--mint-dark);
+      background: #e9f4ee;
+      text-align: center;
+    }
+
+    .urgent-path .edge-label {
+      color: #8f3128;
+      background: #fde7e3;
+    }
+
+    .path-arrow {
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .cause-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .cause-pair {
+      display: grid;
+      gap: 7px;
+    }
+
+    .simple-flow {
+      display: grid;
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .flow-card {
+      border: 1px solid #c7d7ce;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.42;
+      box-shadow: 0 8px 18px rgba(28, 52, 42, .07);
+    }
+
+    .flow-card.start,
+    .flow-card.judge {
+      border-color: #8fbda9;
+      background: #f3faf6;
+      font-weight: 800;
+    }
+
+    .flow-card.urgent {
+      border-color: #e3a29a;
+      background: #fff6f4;
+      color: #8f3128;
+      font-weight: 800;
+    }
+
+    .flow-card.check {
+      border-color: #9fc8b6;
+      background: #f5fbf7;
+    }
+
+    .flow-card.action {
+      border-color: #e5d2ad;
+      background: #fffaf0;
+    }
+
+    .flow-arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .flow-split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    .flow-path {
+      display: grid;
+      gap: 10px;
+      border-radius: var(--radius);
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .flow-path.urgent {
+      border-color: #efb2aa;
+      background: #fff8f6;
+    }
+
+    .flow-path.check {
+      border-color: #a9cdbd;
+      background: #f8fcf9;
+    }
+
+    .flow-label {
+      justify-self: center;
+      border-radius: 99px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--mint-dark);
+      background: #e9f4ee;
+      text-align: center;
+    }
+
+    .flow-path.urgent .flow-label {
+      color: #8f3128;
+      background: #fde7e3;
+    }
+
+    .flow-causes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mermaid-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 12px;
+      overflow-x: auto;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+    }
+
+    .mermaid-card .mermaid {
+      min-width: 760px;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .flow-svg {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      font-family: inherit;
+    }
+
+    .flow-svg text {
+      fill: var(--ink);
+      font-size: 16px;
+      font-weight: 700;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .flow-svg .small {
+      fill: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .flow-svg .node {
+      fill: #ffffff;
+      stroke: #9fb8ad;
+      stroke-width: 2;
+      rx: 8;
+    }
+
+    .flow-svg .start,
+    .flow-svg .check {
+      fill: #f4faf6;
+      stroke: #2f7d61;
+    }
+
+    .flow-svg .urgent {
+      fill: #fff2ef;
+      stroke: #b65045;
+    }
+
+    .flow-svg .action {
+      fill: #fff9ed;
+      stroke: #c98723;
+    }
+
+    .flow-svg .decision {
+      fill: #f4faf6;
+      stroke: #2f7d61;
+      stroke-width: 2;
+    }
+
+    .flow-svg .edge {
+      fill: none;
+      stroke: #25352d;
+      stroke-width: 2.2;
+      marker-end: url(#arrowHead);
+    }
+
+    .flow-svg .edge-label-bg {
+      fill: #ffffff;
+      opacity: .92;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .lab-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .lab-card h3 {
+      margin: 0;
+    }
+
+    .result-example {
+      border: 1px solid #d6e3db;
+      background: #f8fbf9;
+      border-radius: var(--radius);
+      padding: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .term-grid,
+    .distinction-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .term-card,
+    .distinction-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 12px;
+    }
+
+    .term-card b,
+    .distinction-card b {
+      display: block;
+      color: var(--mint-dark);
+      margin-bottom: 4px;
+    }
+
+    .term-card span,
+    .distinction-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .cascade {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .cascade-step {
+      border: 1px solid #efc3bd;
+      background: #fff8f6;
+      border-radius: var(--radius);
+      padding: 12px;
+      position: relative;
+      min-height: 112px;
+    }
+
+    .cascade-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -16px;
+      top: 42%;
+      z-index: 2;
+      color: var(--coral);
+      font-weight: 800;
+    }
+
+    .cascade-step b {
+      display: block;
+      color: var(--coral);
+      margin-bottom: 5px;
+    }
+
+    .cascade-step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reading-order {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .reading-step {
+      border: 1px solid #cfe1d7;
+      background: #f8fcf9;
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 122px;
+    }
+
+    .reading-step strong {
+      display: block;
+      color: var(--mint-dark);
+      margin-bottom: 5px;
+    }
+
+    .reading-step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .report-switch {
+      display: inline-flex;
+      width: fit-content;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #eef3ef;
+      gap: 3px;
+    }
+
+    .report-switch button {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 12px;
+      font-weight: 700;
+    }
+
+    .report-switch button.active {
+      background: #fff;
+      color: var(--mint-dark);
+      box-shadow: 0 2px 8px rgba(28, 52, 42, .10);
+    }
+
+    .report-case {
+      display: none;
+      gap: 14px;
+    }
+
+    .report-case.active {
+      display: grid;
+    }
+
+    .report-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .report-sheet {
+      border: 1px solid #cbd5cf;
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .report-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      background: #f1f5f2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .report-head b {
+      display: block;
+    }
+
+    .report-head span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .report-table th,
+    .report-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #e7ece9;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .report-table th {
+      color: var(--muted);
+      background: #fbfcfb;
+      font-weight: 700;
+    }
+
+    .report-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .flag-high,
+    .flag-low {
+      color: var(--coral);
+      font-weight: 800;
+    }
+
+    .flag-normal {
+      color: var(--mint-dark);
+      font-weight: 800;
+    }
+
+    .lab-coach {
+      display: grid;
+      gap: 12px;
+    }
+
+    .lab-question {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 14px;
+    }
+
+    .lab-question h3 {
+      margin: 0 0 9px;
+      font-size: 15px;
+    }
+
+    .lab-options {
+      display: grid;
+      gap: 7px;
+    }
+
+    .lab-option {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 9px 10px;
+      text-align: left;
+    }
+
+    .lab-option:hover {
+      border-color: #8fbda9;
+      background: #f6fbf8;
+    }
+
+    .lab-option.correct {
+      border-color: #76ad94;
+      background: #eaf6ef;
+      color: var(--mint-dark);
+    }
+
+    .lab-option.wrong {
+      border-color: #dd8f85;
+      background: #fff1ef;
+      color: #8f3128;
+    }
+
+    .lab-option:disabled {
+      cursor: default;
+    }
+
+    .lab-feedback {
+      display: none;
+      margin-top: 9px;
+      padding: 10px;
+      border-left: 3px solid var(--mint);
+      background: #f4faf6;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .lab-feedback.show {
+      display: block;
+    }
+
+    .report-summary {
+      border-left: 4px solid var(--blue);
+      background: #f2f8fb;
+      padding: 14px;
+      border-radius: var(--radius);
+    }
+
+    .report-summary b {
+      display: block;
+      color: #205a7a;
+      margin-bottom: 5px;
+    }
+
+    .report-summary p {
+      margin: 0;
+    }
+
+    .preanalytic-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .preanalytic-item {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .preanalytic-item b {
+      color: var(--mint-dark);
+    }
+
+    .preanalytic-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .node {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 13px;
+      min-height: 88px;
+      display: grid;
+      align-content: start;
+      gap: 6px;
+      position: relative;
+    }
+
+    .node strong {
+      font-size: 14px;
+    }
+
+    .node span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .node.urgent {
+      border-color: #efb2aa;
+      background: #fff7f5;
+    }
+
+    .node.check {
+      border-color: #a9cdbd;
+      background: #f6fbf7;
+    }
+
+    .arrow {
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .quiz-shell,
+    .chat-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 14px;
+    }
+
+    .case-box {
+      background: #f7fbf8;
+      border: 1px solid #cfe1d7;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .case-box b {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .choice {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 12px 13px;
+      min-height: 48px;
+    }
+
+    .choice:hover {
+      border-color: #91b8a6;
+    }
+
+    .choice.correct {
+      border-color: #2f7d61;
+      background: #edf8f1;
+    }
+
+    .choice.wrong {
+      border-color: #c87067;
+      background: #fff2ef;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: #f7f2e8;
+      border: 1px solid #ead6b6;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .primary,
+    .secondary {
+      border-radius: var(--radius);
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      font-weight: 700;
+    }
+
+    .primary {
+      color: #fff;
+      background: var(--mint);
+    }
+
+    .primary:hover {
+      background: var(--mint-dark);
+    }
+
+    .secondary {
+      color: var(--mint-dark);
+      background: #fff;
+      border-color: #b9d2c6;
+    }
+
+    .coach {
+      background: #17201b;
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      align-self: start;
+    }
+
+    .coach h3 {
+      margin-top: 0;
+    }
+
+    .coach p,
+    .coach li {
+      color: rgba(255, 255, 255, .78);
+      font-size: 13px;
+    }
+
+    .case-library {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .case-select {
+      display: grid;
+      gap: 7px;
+      align-content: start;
+      min-height: 128px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .case-select:hover {
+      border-color: #8fbda9;
+      background: #f8fcf9;
+    }
+
+    .case-select.active {
+      border: 2px solid var(--mint);
+      background: #f1f8f4;
+      padding: 12px;
+    }
+
+    .case-select.complete::after {
+      content: "已完成";
+      justify-self: start;
+      padding: 3px 7px;
+      border-radius: 99px;
+      color: var(--mint-dark);
+      background: #dfeee6;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .case-select b {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .case-select span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .case-level {
+      width: fit-content;
+      padding: 3px 7px;
+      border-radius: 99px;
+      background: #edf3ef;
+      color: var(--mint-dark);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .case-level.urgent {
+      color: #8f3128;
+      background: #fde7e3;
+    }
+
+    .case-level.analysis {
+      color: #795014;
+      background: #fff0cf;
+    }
+
+    .case-level.infection {
+      color: #205a7a;
+      background: #e5f1f7;
+    }
+
+    .case-stagebar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .stage-node {
+      min-width: 0;
+      min-height: 58px;
+      padding: 8px 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--muted);
+      display: grid;
+      gap: 3px;
+      place-items: center;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .stage-node b {
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #edf2ef;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .stage-node.current {
+      border-color: var(--mint);
+      background: #f1f8f4;
+      color: var(--mint-dark);
+      font-weight: 800;
+    }
+
+    .stage-node.current b {
+      color: #fff;
+      background: var(--mint);
+    }
+
+    .stage-node.done {
+      color: var(--mint-dark);
+      background: #f8fcf9;
+    }
+
+    .stage-node.done b {
+      background: #dceee5;
+      color: var(--mint-dark);
+    }
+
+    .case-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .case-main {
+      min-width: 0;
+    }
+
+    .case-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 13px;
+    }
+
+    .case-heading h2 {
+      margin: 0 0 4px;
+    }
+
+    .case-heading p {
+      margin: 0;
+    }
+
+    .case-counter {
+      flex: 0 0 auto;
+      color: var(--mint-dark);
+      background: var(--soft);
+      border-radius: 99px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stage-label {
+      color: var(--mint-dark);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .case-question {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .case-record {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      align-self: start;
+    }
+
+    .case-record .score-item {
+      margin-top: 12px;
+    }
+
+    .case-record .score-line {
+      background: #e1e8e4;
+    }
+
+    .record-head {
+      padding: 14px;
+      background: #17201b;
+      color: #fff;
+    }
+
+    .record-head b {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .record-head span {
+      color: rgba(255, 255, 255, .7);
+      font-size: 12px;
+    }
+
+    .record-section {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .record-section:last-child {
+      border-bottom: 0;
+    }
+
+    .record-section h3 {
+      margin: 0 0 7px;
+      font-size: 13px;
+      color: var(--mint-dark);
+    }
+
+    .record-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .record-item {
+      color: var(--muted);
+      font-size: 12px;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .record-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .58em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #86ad9a;
+    }
+
+    .record-empty {
+      color: #8b948f;
+      font-size: 12px;
+    }
+
+    .case-objective {
+      border-left: 3px solid var(--amber);
+      background: #fff9ed;
+      padding: 10px 12px;
+      color: #74531d;
+      font-size: 12px;
+    }
+
+    .case-complete-box {
+      display: none;
+      border: 1px solid #a9cdbd;
+      background: #f1f8f4;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 14px;
+    }
+
+    .case-complete-box.show {
+      display: block;
+    }
+
+    .case-complete-box h3 {
+      color: var(--mint-dark);
+      margin: 0 0 7px;
+    }
+
+    .case-complete-box p {
+      margin: 0 0 10px;
+    }
+
+    .case-result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .case-result-grid div {
+      border: 1px solid #cfe1d7;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 10px;
+    }
+
+    .case-result-grid b {
+      display: block;
+      color: var(--mint-dark);
+      margin-bottom: 3px;
+    }
+
+    .case-result-grid span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chat-log {
+      background: #f6f8f6;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      min-height: 300px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .bubble {
+      max-width: 86%;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      font-size: 14px;
+    }
+
+    .bubble.owner {
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .bubble.doctor {
+      justify-self: end;
+      color: #fff;
+      background: var(--blue);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 98px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+    }
+
+    .score-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .score-item {
+      display: grid;
+      gap: 5px;
+      font-size: 13px;
+    }
+
+    .score-line {
+      height: 7px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .14);
+    }
+
+    .score-line span {
+      display: block;
+      height: 100%;
+      background: #79c79d;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+    }
+
+    .checklist label {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .disclaimer {
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: relative;
+        height: auto;
+      }
+
+      .nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .topbar,
+      .quiz-shell,
+      .chat-shell,
+      .case-workspace {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .grid,
+      .grid.two,
+      .flow-row,
+      .lesson-grid,
+      .learning-map,
+      .clinical-branches,
+      .report-layout,
+      .reading-order,
+      .cascade {
+        grid-template-columns: 1fr;
+      }
+
+      .case-library {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cascade-step:not(:last-child)::after {
+        content: "↓";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -19px;
+      }
+
+      .clinical-branches::before,
+      .branch::before {
+        display: none;
+      }
+
+      .status-card {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      .nav {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 12px;
+      }
+
+      .tabs button {
+        white-space: nowrap;
+      }
+
+      .mermaid-map {
+        overflow-x: visible;
+      }
+
+      .tree {
+        min-width: 0;
+        gap: 10px;
+      }
+
+      .tree-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .tree-row.causes {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .tree-branches,
+      .cause-grid,
+      .flow-split,
+      .flow-causes,
+      .lab-grid,
+      .term-grid,
+      .distinction-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .report-head {
+        display: grid;
+      }
+
+      .report-sheet {
+        overflow-x: auto;
+      }
+
+      .report-table {
+        min-width: 560px;
+      }
+
+      .preanalytic-item {
+        grid-template-columns: 1fr;
+      }
+
+      .case-stagebar {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .case-heading {
+        display: grid;
+      }
+
+      .case-counter {
+        width: fit-content;
+      }
+
+      .case-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-library {
+        grid-template-columns: 1fr;
+      }
+
+      .tree-branches::before,
+      .tree-path::before {
+        display: none;
+      }
+
+      .tree-node,
+      .tree-node.cause,
+      .tree-node.action {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+      }
+
+      .tree-node.decision {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        height: auto;
+        min-height: 54px;
+        border: 2px solid #8fbda9;
+        background: #f5fbf7;
+        box-shadow: 0 8px 18px rgba(28, 52, 42, .07);
+      }
+
+      .tree-node.decision::before,
+      .split-line,
+      .multi-line,
+      .tree-line,
+      .split-labels {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body style="visibility:hidden">
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <strong>宠医训练台</strong>
+        <span>基础班样板模块</span>
+      </div>
+
+      <div class="module-switch" aria-label="课程切换">
+        <a class="active" href="index.html"><b>模块 01 · FLUTD</b>猫下泌尿道综合征</a>
+        <a href="ckd.html"><b>模块 02 · CKD</b>猫慢性肾病</a>
+      </div>
+
+      <div class="progress-box">
+        <div class="progress-top">
+          <span>当前进度</span>
+          <b id="progressText">0%</b>
+        </div>
+        <div class="meter"><span id="progressBar"></span></div>
+      </div>
+
+      <nav class="nav" aria-label="模块导航">
+        <button class="active" data-jump="overview">学习笔记</button>
+        <button data-jump="path">临床路径</button>
+        <button data-jump="checklist">问诊体检</button>
+        <button data-jump="labs">化验解读</button>
+        <button data-jump="quiz">病例中心</button>
+        <button data-jump="client">宠主模拟</button>
+        <button data-jump="review">复盘</button>
+      </nav>
+
+      <div class="rail-note">
+        本样板用于学习训练和产品验证，不替代执业兽医的诊断与治疗决策。
+      </div>
+    </aside>
+
+    <main>
+      <section class="topbar">
+        <div class="title-block">
+          <div class="eyebrow">猫下泌尿道综合征 FLUTD · 基础班</div>
+          <h1>先学会 FLUTD 的知识框架，再进入病例训练</h1>
+          <p class="lead">这个基础班先把猫下泌尿道症状、尿闭急症、常见病因、诊断路径和复发管理系统讲清楚，再用闯关和宠主模拟训练临床表达。</p>
+        </div>
+        <div class="status-card">
+          <b id="bestScore">未完成</b>
+          <span>递进病例完成度</span>
+        </div>
+      </section>
+
+      <section class="tabs" aria-label="内容分区">
+        <button class="active" data-tab="overview">学习笔记</button>
+        <button data-tab="path">临床路径</button>
+        <button data-tab="checklist">问诊体检</button>
+        <button data-tab="labs">化验解读</button>
+        <button data-tab="quiz">病例中心</button>
+        <button data-tab="client">宠主模拟</button>
+        <button data-tab="review">复盘</button>
+      </section>
+
+      <section id="overview" class="panel active">
+        <div class="lesson-grid">
+          <article class="card note-stack">
+            <div>
+              <h2>系统学习笔记</h2>
+              <p>这一页先完成授课：把 FLUTD 当作“临床问题集合”来理解，而不是直接背一个疾病名。</p>
+            </div>
+
+            <section class="note-block definition">
+              <h3>1. 什么是 FLUTD</h3>
+              <p>FLUTD 是 Feline Lower Urinary Tract Disease 的缩写，指影响猫膀胱和尿道的一组疾病或临床问题。它不是单一诊断，真实门诊入口通常是“猫频繁进猫砂盆”“尿少”“血尿”“乱尿”“舔尿道口”。</p>
+              <p>对新手来说，第一步不是马上猜病因，而是判断这只猫是否存在尿道阻塞风险。</p>
+            </section>
+
+            <section class="note-block">
+              <h3>2. 先定位：下泌尿道到底是哪一段</h3>
+              <p><b>下泌尿道主要指膀胱和尿道。</b>膀胱负责储尿，尿道负责把尿排出体外。肾脏和输尿管属于上泌尿道，但严重尿道阻塞会让压力向上游传递，并造成肾小球滤过下降、代谢废物潴留和电解质异常，所以尿闭病例仍要看肾功能与电解质。</p>
+              <div class="distinction-grid">
+                <div class="distinction-card">
+                  <b>膀胱受刺激</b>
+                  <p>常表现为尿频、每次尿量少、尿痛、血尿和乱尿；动物可能仍能排出尿。</p>
+                </div>
+                <div class="distinction-card">
+                  <b>尿道流出受阻</b>
+                  <p>频繁用力但无尿或只有几滴，膀胱可能大、紧、疼痛；公猫尤其需要快速排查。</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="note-block danger-box">
+              <h3>3. 为什么先排尿闭</h3>
+              <p>尿道阻塞是 FLUTD 中最需要快速识别的急症。完全阻塞时，尿液不能排出，肾脏排毒和水电解质平衡会迅速受到影响，可能发展为危及生命的状态。</p>
+              <ul>
+                <li>公猫或已绝育公猫风险更高，因为尿道更长更窄。</li>
+                <li>无尿、极少尿、频繁痛苦蹲猫砂盆，要优先怀疑阻塞。</li>
+                <li>呕吐、沉郁、虚弱、食欲废绝，提示问题可能已经不只是局部尿路不适。</li>
+                <li>触诊到大而紧张的疼痛膀胱强烈支持阻塞，但膀胱大小仍需结合病程、是否部分阻塞和体检整体判断。</li>
+              </ul>
+            </section>
+
+            <section class="note-block">
+              <h3>4. 先把症状术语分清</h3>
+              <div class="term-grid">
+                <div class="term-card"><b>尿频 Pollakiuria</b><span>排尿次数增加，但每次量通常很少，常指向下泌尿道刺激。</span></div>
+                <div class="term-card"><b>排尿困难 Dysuria / Stranguria</b><span>排尿疼痛、费力或长时间蹲尿，要继续确认到底排出了多少。</span></div>
+                <div class="term-card"><b>血尿 Hematuria</b><span>可见或镜下红细胞增加，说明出血存在，但不能单凭血尿判断感染。</span></div>
+                <div class="term-card"><b>异位排尿 Periuria</b><span>在猫砂盆外排尿，可能由疼痛、紧迫感、砂盆厌恶或环境压力引起。</span></div>
+                <div class="term-card"><b>少尿 / 无尿</b><span>尿量明显减少或没有尿。新手要先区分“产生得少”与“产生了但排不出”。</span></div>
+                <div class="term-card"><b>多尿 Polyuria</b><span>总尿量增加，尿团通常变大；与“频繁但每次几滴”的尿频不是同一个概念。</span></div>
+              </div>
+              <table class="matrix">
+                <thead>
+                  <tr>
+                    <th>表现</th>
+                    <th>临床含义</th>
+                    <th>新手提醒</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>频繁进猫砂盆、每次尿量少</td>
+                    <td>下泌尿道刺激、疼痛或排尿受阻</td>
+                    <td>先确认有没有真实尿团</td>
+                  </tr>
+                  <tr>
+                    <td>血尿、尿痛、嚎叫</td>
+                    <td>膀胱或尿道炎症、结石、损伤等</td>
+                    <td>血尿不等于细菌感染</td>
+                  </tr>
+                  <tr>
+                    <td>乱尿、舔尿道口</td>
+                    <td>疼痛、不适、行为改变或环境压力相关</td>
+                    <td>不要直接归因于“报复主人”</td>
+                  </tr>
+                  <tr>
+                    <td>无尿、呕吐、沉郁</td>
+                    <td>疑似阻塞或全身风险</td>
+                    <td>按急症升级处理</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="note-block">
+              <h3>5. 常见病因框架</h3>
+              <table class="matrix">
+                <thead>
+                  <tr>
+                    <th>方向</th>
+                    <th>怎么理解</th>
+                    <th>判断依据</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>猫特发性膀胱炎 FIC</td>
+                    <td>排除其他明确病因后的常见方向</td>
+                    <td>年轻至中年猫、压力和环境因素、尿检无明确感染证据</td>
+                  </tr>
+                  <tr>
+                    <td>尿石或结晶</td>
+                    <td>矿物沉积刺激或阻塞泌尿道</td>
+                    <td>尿检、X 光、超声、结石类型分析</td>
+                  </tr>
+                  <tr>
+                    <td>尿道栓</td>
+                    <td>炎性物质、黏液、细胞和矿物成分形成阻塞</td>
+                    <td>公猫阻塞病例常需要考虑</td>
+                  </tr>
+                  <tr>
+                    <td>细菌性尿路感染</td>
+                    <td>猫不能像犬一样默认感染</td>
+                    <td>老年猫、基础病、复发或复杂病例考虑尿培养</td>
+                  </tr>
+                  <tr>
+                    <td>其他少见病因</td>
+                    <td>解剖异常、肿瘤、神经问题、行为和环境问题</td>
+                    <td>老年、反复、非典型或治疗反应差时升级排查</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="note-block">
+              <h3>6. 三个最容易混淆的概念</h3>
+              <div class="distinction-grid">
+                <div class="distinction-card">
+                  <b>FIC 是排除性方向</b>
+                  <p>猫特发性膀胱炎没有一个单项化验可以“验出来”。病史、尿检和必要影像排除尿石、感染等明确原因后，才形成工作诊断；压力与环境因素是重要线索，但“有应激”本身也不能单独确诊。</p>
+                </div>
+                <div class="distinction-card">
+                  <b>结晶不等于结石</b>
+                  <p>尿沉渣见到结晶只说明尿中出现了晶体。是否存在有临床意义的尿石，要结合新鲜样本、结晶类型、症状和影像；样本放置过久还可能出现体外结晶。</p>
+                </div>
+                <div class="distinction-card">
+                  <b>血尿/白细胞不等于感染</b>
+                  <p>FIC、尿石和采样创伤都可能造成红细胞或炎症细胞增加。细菌性膀胱炎需要结合采样方式、沉渣和培养，不能因为试纸“潜血阳性”就开抗菌药。</p>
+                </div>
+                <div class="distinction-card">
+                  <b>尿液浓缩不等于肾功能正常</b>
+                  <p>尿比重反映的是这份尿液的浓缩程度。解读时要同时看水合状态、血液肾指标、用药和疾病背景，不能用单个尿比重替代完整肾功能判断。</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="note-block danger-box">
+              <h3>7. 尿道阻塞为什么会变成全身急症</h3>
+              <div class="cascade">
+                <div class="cascade-step"><b>尿排不出去</b><span>膀胱内压力升高，动物持续疼痛和用力排尿。</span></div>
+                <div class="cascade-step"><b>滤过下降</b><span>尿路压力上升后，肾脏清除代谢废物的能力受影响。</span></div>
+                <div class="cascade-step"><b>氮质血症与高钾</b><span>尿素氮、肌酐可能升高，钾潴留可影响心脏电活动。</span></div>
+                <div class="cascade-step"><b>全身失代偿</b><span>可出现呕吐、沉郁、脱水、低体温、虚弱或心律异常。</span></div>
+              </div>
+              <p>因此，疑似阻塞时的优先级是先评估稳定性和解除危险，而不是先花时间把 FIC、结石或尿道栓分得非常精细。</p>
+            </section>
+
+            <section class="note-block">
+              <h3>8. 诊断路径</h3>
+              <div class="learning-map">
+                <div class="map-step"><b>主诉</b><span>尿频、尿痛、血尿、乱尿、舔尿道口。</span></div>
+                <div class="map-step"><b>急症分层</b><span>先问能否排尿，再摸膀胱和看全身状态。</span></div>
+                <div class="map-step"><b>基础检查</b><span>体检、尿检；疑似尿闭时加血检、电解质、肾功能。</span></div>
+                <div class="map-step"><b>病因鉴别</b><span>FIC、尿石、尿道栓、感染、环境压力。</span></div>
+                <div class="map-step"><b>长期管理</b><span>饮水、湿粮、体重、猫砂盆资源、压力源和复查。</span></div>
+              </div>
+            </section>
+
+            <section class="note-block">
+              <h3>9. 初诊检查与采样前误差</h3>
+              <ul>
+                <li>尿检：确认尿液浓缩程度、pH、血尿、沉渣、结晶、细胞等。</li>
+                <li>血检和生化：评估全身状态，尤其是脱水、肾功能和炎症线索。</li>
+                <li>电解质：疑似尿闭时很关键，用来评估急症风险。</li>
+                <li>影像：用于评估结石、膀胱状态和其他结构性问题。</li>
+                <li>尿培养：不是所有猫都要做，但老年、复发、复杂或怀疑感染时有价值。</li>
+              </ul>
+              <div class="preanalytic-list">
+                <div class="preanalytic-item"><b>先记采样方式</b><span>自然排尿、导尿和膀胱穿刺的污染风险不同；培养结果必须和采样方式一起解释。</span></div>
+                <div class="preanalytic-item"><b>尽量检查新鲜尿</b><span>放置时间和保存条件会改变细胞、管型、pH、细菌数量，并可能造成体外结晶。</span></div>
+                <div class="preanalytic-item"><b>穿刺也会造成血尿</b><span>膀胱穿刺可能引入少量红细胞，所以显微镜血尿仍需结合肉眼尿色、症状和采样过程。</span></div>
+                <div class="preanalytic-item"><b>试纸不能包办全部</b><span>试纸、尿比重和沉渣解决的问题不同；细菌感染确认尤其不能只看试纸。</span></div>
+              </div>
+            </section>
+
+            <section class="note-block">
+              <h3>10. 怎样写出合格的工作判断</h3>
+              <p>新手不要急着写“确诊 FIC”或“确诊感染”。先用四句话把证据链写完整：</p>
+              <ol>
+                <li><b>危险分层：</b>目前是否能排尿，膀胱和全身状态是否支持阻塞急症。</li>
+                <li><b>主要异常：</b>症状、体检和化验中真正异常的项目是什么。</li>
+                <li><b>当前支持方向：</b>这些异常更支持炎症、尿石、感染还是阻塞后的全身影响。</li>
+                <li><b>仍缺证据：</b>哪些诊断尚不能成立，下一项检查是为了回答什么问题。</li>
+              </ol>
+              <div class="result-example"><b>示例：</b>该猫仍能排尿，膀胱不大，全身状态稳定；尿检主要表现为血尿，未见明确脓尿和细菌证据。当前支持非阻塞性下泌尿道炎症，FIC 可列为工作方向，但仍需结合病史及必要影像排除尿石，现有结果不足以诊断细菌性膀胱炎。</div>
+            </section>
+
+            <section class="note-block">
+              <h3>11. 复发管理</h3>
+              <p>FLUTD 不是症状缓解就结束。对于 FIC 或复发病例，要把长期管理讲成“降低刺激和压力、增加尿液稀释、减少复发机会”。</p>
+              <ul>
+                <li>增加饮水和湿粮比例，减少尿液过度浓缩。</li>
+                <li>控制体重，增加运动和玩耍。</li>
+                <li>猫砂盆数量充足，常用原则是猫数 + 1。</li>
+                <li>猫砂盆放在安静、安全、容易进入的位置，并保持清洁。</li>
+                <li>减少突然换粮、搬家、多猫冲突等压力源。</li>
+                <li>提供躲藏、攀爬、休息和捕猎模拟机会。</li>
+              </ul>
+            </section>
+          </article>
+
+          <aside class="note-stack">
+            <article class="card memory-box">
+              <h2>记忆卡</h2>
+              <p><b>一句话总纲：</b>猫尿频先问有没有尿；公猫无尿先当急症；能排尿再慢慢做病因分析。</p>
+              <div class="tag-row">
+                <span class="tag danger">尿闭</span>
+                <span class="tag">FIC</span>
+                <span class="tag">尿石/尿道栓</span>
+                <span class="tag warn">环境压力</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h2>新手最容易漏</h2>
+              <ul>
+                <li>把频繁蹲猫砂盆当便秘。</li>
+                <li>未确认尿量就让主人回家观察。</li>
+                <li>把所有血尿都当细菌感染。</li>
+                <li>只讲开药，不讲检查目的。</li>
+                <li>症状缓解后不讲复发管理。</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <h2>宠主解释模板</h2>
+              <p>我理解您想先开药、节省时间和费用。但公猫如果尿不出来，可能不是普通炎症，而是尿道阻塞。这个情况拖延后可能影响肾功能和电解质，严重时会危及生命。所以第一步要先确认膀胱和排尿情况，必要时评估尿液、肾功能和电解质。</p>
+            </article>
+
+            <article class="card">
+              <h2>资料来源</h2>
+              <ul class="source-list">
+                <li>Cornell Feline Health Center：Feline Lower Urinary Tract Disease</li>
+                <li>Merck/MSD Veterinary Manual：Lower Urinary Tract Disease in Cats、Urethral Obstruction、Urinalysis</li>
+                <li>ISCAID：犬猫细菌性尿路感染诊断与管理指南（2019）</li>
+                <li>International Cat Care：FLUTD 与 FIC 资料</li>
+                <li>AAFP/ISFM：猫环境需求和压力管理资料</li>
+              </ul>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <section id="path" class="panel">
+        <article class="card">
+          <h2>临床路径图</h2>
+          <p>这个图是新手接诊“猫尿频、尿痛、乱尿”时的基础路径。核心不是背答案，而是先把危险分层做对。</p>
+          <div class="mermaid-card" aria-label="猫下泌尿道症状接诊思维图">
+            <svg class="flow-svg" viewBox="0 0 1100 850" role="img" aria-labelledby="flowTitle flowDesc">
+              <title id="flowTitle">猫下泌尿道症状接诊思维图</title>
+              <desc id="flowDesc">从猫尿频尿痛血尿乱尿开始，先判断是否能排尿，再分为尿道阻塞急症路径和非阻塞性下泌尿道症状路径。</desc>
+              <defs>
+                <marker id="arrowHead" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#25352d"></path>
+                </marker>
+              </defs>
+
+              <rect class="node start" x="390" y="20" width="320" height="54"></rect>
+              <text x="550" y="47">猫出现尿频 / 尿痛 / 血尿 / 乱尿</text>
+
+              <path class="edge" d="M550 74 L550 118"></path>
+              <polygon class="decision" points="550,118 670,188 550,258 430,188"></polygon>
+              <text x="550" y="188">能否排出尿？</text>
+
+              <path class="edge" d="M430 188 C350 210 270 235 260 290"></path>
+              <rect class="edge-label-bg" x="138" y="244" width="244" height="24" rx="12"></rect>
+              <text class="small" x="260" y="256">完全无尿或极少尿 + 痛苦</text>
+              <rect class="node urgent" x="125" y="300" width="270" height="58"></rect>
+              <text x="260" y="329">疑似尿道阻塞：急症</text>
+
+              <path class="edge" d="M260 358 L260 405"></path>
+              <rect class="node urgent" x="95" y="416" width="330" height="72"></rect>
+              <text x="260" y="442">
+                <tspan x="260" dy="0">评估膀胱、电解质、肾功能</tspan>
+                <tspan x="260" dy="22">疼痛、脱水</tspan>
+              </text>
+
+              <path class="edge" d="M260 488 L260 536"></path>
+              <rect class="node action" x="95" y="548" width="330" height="72"></rect>
+              <text x="260" y="574">
+                <tspan x="260" dy="0">先处理生命风险</tspan>
+                <tspan x="260" dy="22">再讨论病因和复发管理</tspan>
+              </text>
+
+              <path class="edge" d="M670 188 C750 210 830 235 840 290"></path>
+              <rect class="edge-label-bg" x="790" y="244" width="100" height="24" rx="12"></rect>
+              <text class="small" x="840" y="256">仍可排尿</text>
+              <rect class="node check" x="705" y="300" width="270" height="58"></rect>
+              <text x="840" y="329">非阻塞性下泌尿道症状</text>
+
+              <path class="edge" d="M840 358 L840 405"></path>
+              <rect class="node check" x="705" y="416" width="270" height="58"></rect>
+              <text x="840" y="445">尿检 / 影像 / 尿培养</text>
+
+              <path class="edge" d="M840 474 L840 518"></path>
+              <polygon class="decision" points="840,518 960,588 840,658 720,588"></polygon>
+              <text x="840" y="588">可能病因</text>
+
+              <path class="edge" d="M760 635 C640 660 250 664 180 704"></path>
+              <path class="edge" d="M810 654 C720 675 450 680 420 704"></path>
+              <path class="edge" d="M870 654 C900 680 900 680 910 704"></path>
+              <path class="edge" d="M920 635 C1000 660 1040 675 1030 704"></path>
+
+              <rect class="node check" x="55" y="714" width="250" height="48"></rect>
+              <text x="180" y="738">特发性膀胱炎</text>
+              <rect class="node check" x="325" y="714" width="250" height="48"></rect>
+              <text x="450" y="738">尿石 / 结晶 / 尿道栓</text>
+              <rect class="node check" x="675" y="714" width="180" height="48"></rect>
+              <text x="765" y="738">感染</text>
+              <rect class="node check" x="890" y="714" width="210" height="48"></rect>
+              <text x="995" y="738">行为 / 环境压力</text>
+
+              <path class="edge" d="M180 762 L180 790"></path>
+              <path class="edge" d="M450 762 L450 790"></path>
+              <path class="edge" d="M765 762 L765 790"></path>
+              <path class="edge" d="M995 762 L995 790"></path>
+              <rect class="node action" x="40" y="800" width="280" height="48"></rect>
+              <text x="180" y="824">疼痛 / 饮水 / 环境 / 复发预防</text>
+              <rect class="node action" x="325" y="800" width="250" height="48"></rect>
+              <text x="450" y="824">按结石类型制定方案</text>
+              <rect class="node action" x="655" y="800" width="220" height="48"></rect>
+              <text x="765" y="824">培养和药敏指导用药</text>
+              <rect class="node action" x="890" y="800" width="210" height="48"></rect>
+              <text x="995" y="824">猫砂盆和压力源管理</text>
+            </svg>
+          </div>
+        </article>
+
+        <div class="grid">
+          <article class="card">
+            <h3>节点 1：第一判断</h3>
+            <ul>
+              <li>先问有没有明确尿团。</li>
+              <li>再问每次尿量，是正常、小尿团、几滴，还是完全没有。</li>
+              <li>主人说“不确定”时，不能按低风险处理。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>节点 2：急症信号</h3>
+            <ul>
+              <li>公猫、无尿或极少尿、痛苦蹲猫砂盆。</li>
+              <li>呕吐、沉郁、虚弱、食欲废绝。</li>
+              <li>膀胱大、硬、紧张疼痛。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>节点 3：基础检查</h3>
+            <ul>
+              <li>体检和膀胱触诊决定是否先升级。</li>
+              <li>尿检是非阻塞病例的基础入口。</li>
+              <li>疑似尿闭时，血检、电解质和肾功能优先级上升。</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="grid two">
+          <article class="card">
+            <h3>节点 4：复发管理</h3>
+            <ul>
+              <li>不要只讲症状缓解，要讲为什么会复发。</li>
+              <li>把饮水、湿粮、体重、猫砂盆资源和压力源一起讲。</li>
+              <li>复查计划要根据病因和复发风险来安排。</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>新手常见偏差</h3>
+            <ul>
+              <li>把频繁蹲猫砂盆当便秘。</li>
+              <li>把血尿直接等同于细菌感染。</li>
+              <li>只讲开药，不解释检查目的。</li>
+              <li>只处理当次症状，不讲长期管理。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="checklist" class="panel">
+        <div class="grid two">
+          <article class="card">
+            <h2>问诊清单</h2>
+            <div class="checklist">
+              <label><input type="checkbox" data-task="history">今天有没有明确尿团？每次尿量多少？</label>
+              <label><input type="checkbox" data-task="history">猫是公猫还是母猫？是否绝育？年龄多大？</label>
+              <label><input type="checkbox" data-task="history">精神、食欲、饮水、呕吐情况如何？</label>
+              <label><input type="checkbox" data-task="history">既往是否有尿闭、血尿、结石或复发史？</label>
+              <label><input type="checkbox" data-task="history">饮食结构、湿粮比例、饮水方式、体重情况？</label>
+              <label><input type="checkbox" data-task="history">猫砂盆数量、清洁频率、多猫关系、近期搬家或应激？</label>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>体检与检查优先级</h2>
+            <div class="checklist">
+              <label><input type="checkbox" data-task="exam">先评估精神状态、脱水、疼痛和生命体征。</label>
+              <label><input type="checkbox" data-task="exam">膀胱触诊：是否大、紧、疼痛，能否排空。</label>
+              <label><input type="checkbox" data-task="exam">尿检：比重、pH、血尿、蛋白、沉渣、结晶、细胞。</label>
+              <label><input type="checkbox" data-task="exam">疑似阻塞：考虑血检、电解质、肾功能和紧急处理。</label>
+              <label><input type="checkbox" data-task="exam">复发或怀疑结石：腹部影像评估。</label>
+              <label><input type="checkbox" data-task="exam">老年、免疫低下或复发：考虑尿培养和药敏。</label>
+            </div>
+          </article>
+        </div>
+
+        <article class="card">
+          <h2>正常/异常判断速查</h2>
+          <p>基础班不要求新手背完整参考区间，而是先学会把问诊和检查结果分成“可以继续分析”和“需要升级处理”。具体化验数值应以本院仪器和报告参考区间为准。</p>
+          <table class="matrix">
+            <thead>
+              <tr>
+                <th>项目</th>
+                <th>相对正常或低风险</th>
+                <th>异常或高风险信号</th>
+                <th>下一步判断</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>排尿情况</td>
+                <td>有明确尿团，虽然频繁但能排出尿</td>
+                <td>无尿、只有几滴、主人无法确认尿团</td>
+                <td>公猫出现无尿线索时，先按疑似尿闭升级</td>
+              </tr>
+              <tr>
+                <td>精神和食欲</td>
+                <td>精神尚可，食欲基本正常</td>
+                <td>沉郁、食欲废绝、呕吐、虚弱</td>
+                <td>提示全身风险，不能只当普通尿频处理</td>
+              </tr>
+              <tr>
+                <td>膀胱触诊</td>
+                <td>小到中等、柔软或可排空</td>
+                <td>大、硬、紧张、疼痛明显，难以排空</td>
+                <td>支持阻塞或严重排尿障碍，需要快速处理</td>
+              </tr>
+              <tr>
+                <td>生命体征</td>
+                <td>猫常见体温约 38.0-39.2°C，心率约 140-220 次/分，呼吸约 20-30 次/分</td>
+                <td>低体温、明显心动过缓或过速、呼吸异常、休克表现</td>
+                <td>先稳定动物，再继续完整病因分析</td>
+              </tr>
+              <tr>
+                <td>尿检</td>
+                <td>结合尿比重、pH、沉渣、细胞和结晶综合看</td>
+                <td>明显血尿、炎性细胞、结晶、细菌线索或尿液异常浓缩</td>
+                <td>不要只凭单项结晶或血尿下最终结论</td>
+              </tr>
+              <tr>
+                <td>血检/电解质</td>
+                <td>肾功能和电解质在参考区间内，全身状态较稳定</td>
+                <td>氮质血症、高钾、酸碱或脱水相关异常</td>
+                <td>疑似尿闭时这些异常会影响急症处理优先级</td>
+              </tr>
+              <tr>
+                <td>影像</td>
+                <td>未见明显结石或结构异常</td>
+                <td>膀胱结石、尿道结石、膀胱异常扩张或其他结构异常</td>
+                <td>帮助区分 FIC、尿石和其他结构性病因</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="labs" class="panel">
+        <article class="card">
+          <h2>化验报告解读：先建立固定读单顺序</h2>
+          <p>不要从标红项目直接跳到诊断。先确认病例状态和样本质量，再识别异常、组合证据、排除危险，最后才形成工作判断。下方报告为教学模拟数据，参考区间仅供练习，真实病例必须以本院仪器、采样方式和上级医生判断为准。</p>
+          <div class="reading-order">
+            <div class="reading-step"><strong>1. 看病例</strong><span>性别、年龄、能否排尿、膀胱和全身状态。化验单永远不能脱离病猫。</span></div>
+            <div class="reading-step"><strong>2. 看样本</strong><span>采样方式、时间、保存、是否溶血或污染，先判断结果能不能信。</span></div>
+            <div class="reading-step"><strong>3. 找危险</strong><span>疑似阻塞时先看钾、肾指标和酸碱/心电风险，不先纠结结晶类型。</span></div>
+            <div class="reading-step"><strong>4. 组证据</strong><span>把尿比重、pH、红白细胞、细菌、结晶和影像放在一起解释。</span></div>
+            <div class="reading-step"><strong>5. 写结论</strong><span>分别写“支持什么、不能证明什么、下一步回答什么问题”。</span></div>
+          </div>
+        </article>
+
+        <div class="lab-grid">
+          <article class="lab-card">
+            <h3>尿检：三层阅读法</h3>
+            <ul>
+              <li><b>物理层：</b>颜色、透明度、尿比重。尿比重说明浓缩程度，但要结合水合状态和血液肾指标。</li>
+              <li><b>化学层：</b>pH、潜血、蛋白、葡萄糖、酮体等。猫尿试纸部分项目可靠性有限，不能脱离沉渣。</li>
+              <li><b>沉渣层：</b>红细胞、白细胞、上皮细胞、细菌、结晶和管型。先问是否新鲜、怎样采到。</li>
+            </ul>
+            <div class="result-example"><b>关键限制：</b>血尿和脓尿都不是感染特异指标；自然排尿样本见少量细菌可能是污染，尿培养以膀胱穿刺样本更有解释力。</div>
+          </article>
+
+          <article class="lab-card">
+            <h3>生化和电解质：先看急症风险</h3>
+            <ul>
+              <li><b>钾：</b>阻塞时可能升高，严重异常会影响心脏电活动；要结合心率、心电和患者稳定性。</li>
+              <li><b>肌酐/尿素氮：</b>升高可见于阻塞后的肾后性氮质血症，也会受脱水和既往肾病影响。</li>
+              <li><b>磷与酸碱：</b>可随严重或持续阻塞出现异常，帮助判断全身代谢影响。</li>
+              <li><b>总蛋白/红细胞压积：</b>可提供脱水线索，但仍要回到体检综合判断。</li>
+            </ul>
+            <div class="result-example"><b>关键限制：</b>肾指标正常不能单独排除早期或部分阻塞；肾指标升高也不能脱离排尿史直接等同于原发肾病。</div>
+          </article>
+
+          <article class="lab-card">
+            <h3>影像与培养：回答不同问题</h3>
+            <ul>
+              <li><b>X 光：</b>适合寻找多数不透射线结石并观察位置、数量和大小，但不是所有结石都同样显影。</li>
+              <li><b>超声：</b>可观察膀胱内容物、壁和部分结构异常，但尿道远端评估有限。</li>
+              <li><b>培养：</b>回答“是否存在有意义的细菌生长”，样本应尽量在抗菌药前获取。</li>
+              <li><b>药敏：</b>回答“分离菌对哪些药物敏感”，不能由尿频或试纸结果替代。</li>
+            </ul>
+            <div class="result-example"><b>关键限制：</b>影像未见结石不等于没有 FLUTD；培养阴性也不排除 FIC、结石或其他非感染性病因。</div>
+          </article>
+        </div>
+
+        <article class="card">
+          <h2>模拟化验报告实训</h2>
+          <p>先自己判断，再点答案。两份报告刻意呈现不同优先级：A 练习“不要把血尿和结晶读成感染/结石”，B 练习“先识别尿闭造成的全身危险”。</p>
+          <div class="report-switch" role="tablist" aria-label="模拟报告选择">
+            <button class="active" data-report-target="reportA" role="tab" aria-selected="true">报告 A：仍能排尿</button>
+            <button data-report-target="reportB" role="tab" aria-selected="false">报告 B：疑似尿闭</button>
+          </div>
+        </article>
+
+        <section id="reportA" class="report-case active">
+          <article class="case-box">
+            <b>病例 A：4 岁已绝育母猫</b>
+            <span>尿频、血尿 2 天，仍能形成小尿团，精神食欲尚可。近期家中新增一只猫。膀胱小至中等、可触诊，无明显扩张。尿液为膀胱穿刺后 30 分钟内检查。</span>
+          </article>
+          <div class="report-layout">
+            <article class="report-sheet" aria-label="病例 A 模拟化验报告">
+              <div class="report-head">
+                <div><b>尿液分析</b><span>样本：膀胱穿刺 · 新鲜样本</span></div>
+                <div><b>血液生化</b><span>教学模拟参考区间</span></div>
+              </div>
+              <table class="report-table">
+                <thead><tr><th>项目</th><th>结果</th><th>参考/说明</th><th>标记</th></tr></thead>
+                <tbody>
+                  <tr><td>尿比重 USG</td><td>1.045</td><td>浓缩尿，结合水合状态</td><td class="flag-normal">—</td></tr>
+                  <tr><td>pH</td><td>6.5</td><td>受饮食、保存和疾病影响</td><td class="flag-normal">—</td></tr>
+                  <tr><td>潜血</td><td>3+</td><td>需与沉渣红细胞对应</td><td class="flag-high">H</td></tr>
+                  <tr><td>红细胞 RBC</td><td>&gt;50 /HPF</td><td>0–5 /HPF</td><td class="flag-high">H</td></tr>
+                  <tr><td>白细胞 WBC</td><td>0–3 /HPF</td><td>0–5 /HPF</td><td class="flag-normal">—</td></tr>
+                  <tr><td>细菌</td><td>未见</td><td>沉渣结果不能替代培养</td><td class="flag-normal">—</td></tr>
+                  <tr><td>结晶</td><td>少量磷酸铵镁</td><td>需结合新鲜度与影像</td><td class="flag-high">提示</td></tr>
+                  <tr><td>肌酐 CREA</td><td>1.6 mg/dL</td><td>0.8–2.4</td><td class="flag-normal">—</td></tr>
+                  <tr><td>尿素氮 BUN</td><td>26 mg/dL</td><td>16–36</td><td class="flag-normal">—</td></tr>
+                  <tr><td>钾 K</td><td>4.3 mmol/L</td><td>3.5–5.8</td><td class="flag-normal">—</td></tr>
+                </tbody>
+              </table>
+            </article>
+
+            <div class="lab-coach">
+              <article class="lab-question" data-feedback="血尿证据明确，但白细胞不高、沉渣未见细菌，现有结果不支持直接诊断细菌性膀胱炎。FIC、尿石及其他非感染性炎症仍需结合病史和影像鉴别。">
+                <h3>1. 这份报告最稳妥的第一结论是？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="false">已经确诊细菌性尿路感染</button>
+                  <button class="lab-option" data-correct="true">存在明显血尿，但感染证据不足</button>
+                  <button class="lab-option" data-correct="false">尿检完全正常</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+
+              <article class="lab-question" data-feedback="结晶说明尿中存在晶体，不等于已经形成影像可见尿石，更不能单凭结晶决定治疗。应结合新鲜样本、症状和影像。">
+                <h3>2. “少量磷酸铵镁结晶”说明什么？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="false">已经确诊膀胱结石</button>
+                  <button class="lab-option" data-correct="true">提示结晶环境，需要结合影像和病史</button>
+                  <button class="lab-option" data-correct="false">证明尿道一定被堵住</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+
+              <article class="lab-question" data-feedback="这是一个相对稳定的非阻塞性病例框架。FIC 可以列为工作方向，但它仍是排除性诊断；必要影像用于排除尿石，培养是否需要取决于年龄、复发、风险因素和临床怀疑。">
+                <h3>3. 下一步最合适的表述是？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="true">考虑非阻塞性下泌尿道炎症，继续排除尿石与感染</button>
+                  <button class="lab-option" data-correct="false">看到应激史即可确诊 FIC</button>
+                  <button class="lab-option" data-correct="false">肾指标正常，所以不需要任何后续判断</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+            </div>
+          </div>
+          <article class="report-summary">
+            <b>标准读单小结</b>
+            <p>该猫目前仍能排尿，未见膀胱扩张，肾指标和钾未显示阻塞后的全身影响；尿检核心异常为血尿。少量结晶不是尿石诊断，现有沉渣也不足以支持细菌感染。工作方向可写为“非阻塞性下泌尿道炎症，FIC 待排，同时根据病史和影像排除尿石”。</p>
+          </article>
+        </section>
+
+        <section id="reportB" class="report-case">
+          <article class="case-box">
+            <b>病例 B：3 岁已绝育公猫</b>
+            <span>约 24 小时未见尿团，反复蹲盆、呕吐、沉郁。膀胱大、紧张且疼痛，心率偏慢。先完成床旁血液检查，尿液检查时机由患者稳定性和急症流程决定。</span>
+          </article>
+          <div class="report-layout">
+            <article class="report-sheet" aria-label="病例 B 模拟化验报告">
+              <div class="report-head">
+                <div><b>急诊血液生化 / 电解质</b><span>静脉血 · 床旁检测</span></div>
+                <div><b>优先任务</b><span>判断阻塞后的全身影响</span></div>
+              </div>
+              <table class="report-table">
+                <thead><tr><th>项目</th><th>结果</th><th>模拟参考区间</th><th>标记</th></tr></thead>
+                <tbody>
+                  <tr><td>肌酐 CREA</td><td>7.2 mg/dL</td><td>0.8–2.4</td><td class="flag-high">H</td></tr>
+                  <tr><td>尿素氮 BUN</td><td>86 mg/dL</td><td>16–36</td><td class="flag-high">H</td></tr>
+                  <tr><td>钾 K</td><td>7.1 mmol/L</td><td>3.5–5.8</td><td class="flag-high">H</td></tr>
+                  <tr><td>磷 P</td><td>8.4 mg/dL</td><td>3.1–7.5</td><td class="flag-high">H</td></tr>
+                  <tr><td>钠 Na</td><td>146 mmol/L</td><td>150–165</td><td class="flag-low">L</td></tr>
+                  <tr><td>总蛋白 TP</td><td>8.5 g/dL</td><td>5.7–8.0</td><td class="flag-high">H</td></tr>
+                  <tr><td>红细胞压积 PCV</td><td>49%</td><td>30–45</td><td class="flag-high">H</td></tr>
+                </tbody>
+              </table>
+            </article>
+
+            <div class="lab-coach">
+              <article class="lab-question" data-feedback="病例史、膀胱体检和氮质血症/高钾共同形成强烈的尿道阻塞证据链。当前优先级是急症稳定性、心电风险和解除阻塞，而不是先给 FIC 定性。">
+                <h3>1. 这组结果首先提示什么？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="false">普通膀胱炎，可回家观察</button>
+                  <button class="lab-option" data-correct="true">阻塞相关肾后性氮质血症和高钾风险</button>
+                  <button class="lab-option" data-correct="false">单纯饮水少</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+
+              <article class="lab-question" data-feedback="高钾尤其需要重视，因为它可能影响心脏电活动。心率偏慢并不代表病情轻，反而要结合心电监护和患者稳定性快速升级。">
+                <h3>2. 哪个结果最直接改变急症优先级？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="false">总蛋白轻度升高</button>
+                  <button class="lab-option" data-correct="true">钾 7.1 mmol/L，且心率偏慢</button>
+                  <button class="lab-option" data-correct="false">磷轻度升高</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+
+              <article class="lab-question" data-feedback="肾指标在解除阻塞和纠正灌注后可能明显改善，因此此刻应先写“阻塞相关肾后性氮质血症”。是否合并原发肾病，需要后续趋势和其他证据。">
+                <h3>3. 肌酐 7.2 能否直接诊断慢性肾病？</h3>
+                <div class="lab-options">
+                  <button class="lab-option" data-correct="false">可以，只要肌酐高就是慢性肾病</button>
+                  <button class="lab-option" data-correct="true">不能，当前阻塞可造成肾后性升高，需看解除后的变化</button>
+                  <button class="lab-option" data-correct="false">不能，因为肌酐对猫没有意义</button>
+                </div>
+                <div class="lab-feedback"></div>
+              </article>
+            </div>
+          </div>
+          <article class="report-summary">
+            <b>标准读单小结</b>
+            <p>公猫无尿、膀胱大而痛、呕吐沉郁，加上肌酐和尿素氮显著升高、高钾及心率偏慢，首先支持尿道阻塞造成的全身急症。当前先处理稳定性与阻塞风险；解除后复查肾指标和电解质趋势，再讨论原发病因与长期管理。</p>
+          </article>
+        </section>
+
+        <article class="card">
+          <h2>读单时必须会说的四句话</h2>
+          <table class="matrix">
+            <thead><tr><th>句式</th><th>病例 A 示例</th><th>病例 B 示例</th></tr></thead>
+            <tbody>
+              <tr><td>最重要的异常是……</td><td>明显血尿，感染证据不足</td><td>氮质血症和高钾</td></tr>
+              <tr><td>它支持……</td><td>下泌尿道炎症</td><td>阻塞后的全身影响</td></tr>
+              <tr><td>但不能单独证明……</td><td>FIC、细菌感染或尿石</td><td>慢性肾病或具体阻塞病因</td></tr>
+              <tr><td>下一步是为了回答……</td><td>有无尿石、是否需要培养、能否形成排除性诊断</td><td>患者能否安全稳定、解除后指标是否改善</td></tr>
+            </tbody>
+          </table>
+          <p class="disclaimer">教学边界：模拟报告用于训练临床推理，不提供具体处方、麻醉或导尿操作指令。真实急症应按医院流程并在有经验兽医监督下处置。</p>
+        </article>
+      </section>
+
+      <section id="quiz" class="panel">
+        <article class="card">
+          <h2>FLUTD 递进病例中心</h2>
+          <p>每个病例都从主诉开始，依次完成问诊、体检、检查选择、报告解读、工作诊断和宠主沟通。点击病例可随时切换；完成记录和最高分保存在当前浏览器。</p>
+          <div id="caseLibrary" class="case-library" aria-label="病例选择"></div>
+        </article>
+
+        <div id="caseStagebar" class="case-stagebar" aria-label="病例进度"></div>
+
+        <div class="case-workspace">
+          <article class="card case-main">
+            <div class="case-heading">
+              <div>
+                <h2 id="caseTitle"></h2>
+                <p id="caseObjective"></p>
+              </div>
+              <span id="caseCounter" class="case-counter"></span>
+            </div>
+
+            <div class="case-box">
+              <b id="caseStageTitle"></b>
+              <span id="caseStem"></span>
+            </div>
+
+            <div id="stageLabel" class="stage-label"></div>
+            <h3 id="questionText" class="case-question"></h3>
+            <div id="choices" class="choices"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+
+            <div class="actions">
+              <button id="nextQuestion" class="primary" disabled>进入下一阶段</button>
+              <button id="resetQuiz" class="secondary">重新训练本病例</button>
+            </div>
+
+            <section id="caseComplete" class="case-complete-box" aria-live="polite">
+              <h3>病例完成</h3>
+              <p id="caseCompleteText"></p>
+              <div id="caseResultGrid" class="case-result-grid"></div>
+              <div class="actions">
+                <button id="nextCase" class="primary">进入下一病例</button>
+              </div>
+            </section>
+          </article>
+
+          <aside class="case-record" aria-label="动态患者记录">
+            <div class="record-head">
+              <b id="recordPatient">患者记录</b>
+              <span id="recordMeta"></span>
+            </div>
+            <section class="record-section">
+              <h3>已知病史</h3>
+              <div id="historyRecord" class="record-list"></div>
+            </section>
+            <section class="record-section">
+              <h3>体检发现</h3>
+              <div id="examRecord" class="record-list"></div>
+            </section>
+            <section class="record-section">
+              <h3>检查结果</h3>
+              <div id="testRecord" class="record-list"></div>
+            </section>
+            <section class="record-section">
+              <h3>当前判断</h3>
+              <div id="assessmentRecord" class="record-list"></div>
+            </section>
+            <section class="record-section">
+              <div id="caseObjectiveCard" class="case-objective"></div>
+              <div class="score-item">
+                <span>当前得分 <b id="liveScore">0/7</b></span>
+                <div class="score-line"><span id="quizMeter" style="width:0%"></span></div>
+              </div>
+              <p id="coachTip" class="disclaimer">先看主诉里的危险信号，不要急着给疾病名。</p>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section id="client" class="panel">
+        <div class="chat-shell">
+          <article class="card">
+            <h2>宠主沟通模拟</h2>
+            <div class="chat-log" id="chatLog">
+              <div class="bubble owner">医生，我家公猫今天一直去猫砂盆，蹲很久也看不出尿，叫得很惨。能不能先开点消炎药？我今天时间有点紧。</div>
+            </div>
+            <textarea id="doctorReply" placeholder="输入你准备对宠主说的话。重点：说明为什么需要立刻检查、风险是什么、检查目的是什么。"></textarea>
+            <div class="actions">
+              <button id="scoreReply" class="primary">提交沟通</button>
+              <button id="resetChat" class="secondary">重置模拟</button>
+            </div>
+          </article>
+
+          <aside class="coach">
+            <h3>评分维度</h3>
+            <div id="commScore">
+              <p>提交后会从风险提示、检查解释、同理心、表达清晰度四个维度给反馈。</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="review" class="panel">
+        <div class="grid two">
+          <article class="card">
+            <h2>基础班复盘题</h2>
+            <ul>
+              <li>为什么“频繁进猫砂盆”第一步不是直接判断尿路感染？</li>
+              <li>公猫疑似尿闭时，为什么不能只让主人回家观察？</li>
+              <li>年轻猫 FLUTD 中，为什么特发性膀胱炎需要考虑压力和环境？</li>
+              <li>你会如何向主人解释尿检、血检、电解质和影像的不同目的？</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>产品体验观察点</h2>
+            <ul>
+              <li>内容是否比普通文章更像临床带教？</li>
+              <li>连续病例是否能训练判断优先级和证据链？</li>
+              <li>宠主模拟是否贴近真实门诊压力？</li>
+              <li>这个模块是否适合扩展成系列课程？</li>
+            </ul>
+          </article>
+        </div>
+        <article class="card">
+          <h2>下一版可增加</h2>
+          <div class="tag-row">
+            <span class="tag">错题本</span>
+            <span class="tag">病例随机变体</span>
+            <span class="tag">老师点评</span>
+            <span class="tag">更多宠主性格</span>
+            <span class="tag">化验错题本</span>
+            <span class="tag">SOAP 复盘报告</span>
+          </div>
+          <p class="disclaimer">内容提示：本体验版为基础学习原型，真实临床处置应结合医院规范、上级医生意见和动物具体情况。</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const savedCaseResults = JSON.parse(localStorage.getItem('vetTrainerCaseResults') || '{}');
+    const state = {
+      activeTab: 'overview',
+      caseIndex: 0,
+      caseStep: 0,
+      caseScore: 0,
+      answered: false,
+      caseFinished: false,
+      completedSections: new Set(JSON.parse(localStorage.getItem('vetTrainerSections') || '[]')),
+      caseResults: savedCaseResults
+    };
+
+    const trainingCases = [
+      {
+        id: 'fic',
+        title: '病例 1 · 典型 FIC',
+        short: '非阻塞症状与排除性诊断',
+        level: '基础',
+        levelClass: '',
+        patient: '米粒 · 家猫 · 4 岁 · 已绝育母猫',
+        objective: '训练目标：先确认非阻塞，再用证据排除感染和尿石，最后形成 FIC 工作诊断。',
+        summary: {
+          focus: 'FIC 是排除性诊断',
+          trap: '把应激史当成确诊依据',
+          transfer: '面对仍能排尿的年轻猫，先建立鉴别诊断，再谈环境管理'
+        },
+        stages: [
+          {
+            phase: '主诉判断',
+            title: '门诊主诉',
+            stem: '主人说：“米粒这两天一直进猫砂盆，每次只有一小团尿，今天还看到一点粉红色，但精神和吃饭都还可以。”',
+            question: '此时最合适的第一判断是什么？',
+            choices: [
+              ['有血尿，所以已经是细菌感染', false],
+              ['属于下泌尿道症状，先确认尿量和阻塞风险', true],
+              ['精神正常，可以不做检查直接回家', false]
+            ],
+            feedback: '尿频、小尿团和血尿符合下泌尿道症状，但病因尚未确定。第一步仍是确认能否排尿、膀胱状态和全身情况。',
+            tip: '先把“危险分层”和“病因判断”分开。',
+            reveal: { history: ['尿频 2 天，每次有小尿团', '偶见粉红色尿液', '精神食欲尚可'] }
+          },
+          {
+            phase: '重点问诊',
+            title: '补充病史',
+            stem: '进一步得知：3 周前家里新增一只猫，两只猫共用一个猫砂盆；米粒以干粮为主。主人能够确认今天仍有多个小尿团。',
+            question: '还应优先补问哪组信息？',
+            choices: [
+              ['最后一次明确排尿、呕吐/沉郁、既往尿闭或复发史', true],
+              ['猫最喜欢哪种玩具和睡觉姿势', false],
+              ['只问猫粮品牌，不需要再问排尿', false]
+            ],
+            feedback: '应激和资源冲突是重要线索，但急症筛查仍要完整：最后排尿、全身症状和既往阻塞史决定分层。',
+            tip: '环境史很重要，但不能取代尿闭筛查。',
+            reveal: { history: ['3 周前新增一只猫', '两只猫共用一个猫砂盆', '以干粮为主', '今天仍有多个小尿团'] }
+          },
+          {
+            phase: '体检分层',
+            title: '体格检查',
+            stem: '米粒警觉，体温 38.4°C，心率 188 次/分，水合尚可。膀胱小至中等、较柔软，可触诊，轻度不适但无明显扩张。',
+            question: '怎样解释这组体检更稳妥？',
+            choices: [
+              ['目前没有强烈阻塞证据，但仍需完成病因评估', true],
+              ['膀胱不大，所以已经确诊 FIC', false],
+              ['心率 188 次/分说明一定存在休克', false]
+            ],
+            feedback: '能排尿且膀胱不扩张，使完全阻塞可能性下降，但不能由此直接诊断 FIC，也不能省略尿检和必要影像。',
+            tip: '体检先回答“急不急”，不是一次回答所有病因。',
+            reveal: { exam: ['精神警觉，水合尚可', '膀胱小至中等、较柔软', '无明显膀胱扩张'] }
+          },
+          {
+            phase: '检查选择',
+            title: '制定检查计划',
+            stem: '米粒目前稳定。你需要用最基础的检查区分炎症、尿石和感染方向。',
+            question: '哪组检查计划最合理？',
+            choices: [
+              ['新鲜尿液分析；根据病史和结果考虑影像，培养取决于感染风险与临床怀疑', true],
+              ['只做血常规，正常就排除 FLUTD', false],
+              ['不采样，直接按细菌感染用药', false]
+            ],
+            feedback: '尿检是非阻塞性 LUTS 的基础入口；影像用于寻找尿石和结构问题，尿培养用于确认感染而不是所有病例机械执行。',
+            tip: '每项检查都要对应一个临床问题。',
+            reveal: { tests: ['计划新鲜尿液分析', '必要时影像排除尿石', '按风险决定是否尿培养'] }
+          },
+          {
+            phase: '报告解读',
+            title: '尿检与影像',
+            stem: '膀胱穿刺尿：USG 1.050，潜血 3+，RBC >50/HPF，WBC 0–3/HPF，未见细菌，未见有临床意义结晶。腹部影像未见尿石。',
+            question: '这组结果最支持什么？',
+            choices: [
+              ['存在血尿和下泌尿道炎症，感染与尿石证据不足', true],
+              ['潜血 3+ 已经证明细菌感染', false],
+              ['影像正常说明猫没有疾病', false]
+            ],
+            feedback: '核心异常是血尿。未见明显脓尿和细菌，影像未见尿石，使感染和尿石证据不足，但 FIC 仍需结合完整排除过程形成工作诊断。',
+            tip: '先写主要异常，再写它不能证明什么。',
+            reveal: { tests: ['USG 1.050，潜血 3+', 'RBC >50/HPF，WBC 0–3/HPF', '沉渣未见细菌', '影像未见尿石'] }
+          },
+          {
+            phase: '工作诊断',
+            title: '形成临床判断',
+            stem: '米粒仍能排尿，体检稳定；尿检提示血尿，未发现感染或尿石证据，并存在明显环境变化。',
+            question: '病历中最合适的工作判断是？',
+            choices: [
+              ['细菌性膀胱炎，已经确诊', false],
+              ['非阻塞性下泌尿道炎症，排除明确病因后考虑 FIC', true],
+              ['单纯行为报复，不属于医学问题', false]
+            ],
+            feedback: 'FIC 没有单项确诊试验。正确表达应保留证据边界：已排除哪些方向、当前最支持什么、仍需怎样随访。',
+            tip: '把“考虑 FIC”写成证据链，不写成猜测。',
+            reveal: { assessment: ['目前为非阻塞性下泌尿道炎症', '感染和尿石证据不足', '排除明确病因后考虑 FIC'] }
+          },
+          {
+            phase: '沟通管理',
+            title: '向宠主解释',
+            stem: '主人问：“既然不是感染，是不是不用管，过几天自己就好？”',
+            question: '哪种沟通最完整？',
+            choices: [
+              ['可能会自己好，所以不需要关注疼痛或复发', false],
+              ['说明疼痛与复发风险；按医师方案管理疼痛，增加饮水，改善砂盆和多猫资源，并交代无尿等急诊信号', true],
+              ['只要换一种昂贵猫粮，其他都不用调整', false]
+            ],
+            feedback: 'FIC 管理不等于等待。需要疼痛管理、增加水分、减少资源冲突和压力，同时清楚交代无尿、呕吐、沉郁等复诊或急诊信号。',
+            tip: '沟通要同时覆盖当下不适、长期复发和危险信号。',
+            reveal: { assessment: ['管理重点：疼痛、水分、环境资源、复发监测', '出现无尿或全身症状需立即复诊'] }
+          }
+        ]
+      },
+      {
+        id: 'obstruction',
+        title: '病例 2 · 尿道阻塞',
+        short: '急症分层与高钾风险',
+        level: '急症',
+        levelClass: 'urgent',
+        patient: '煤球 · 家猫 · 3 岁 · 已绝育公猫',
+        objective: '训练目标：从主诉和膀胱体检识别尿闭，并把高钾、氮质血症和心电风险放在首位。',
+        summary: {
+          focus: '先稳定和解除阻塞风险',
+          trap: '先纠结是 FIC、结石还是尿道栓',
+          transfer: '任何公猫无尿线索，都要快速完成膀胱与全身风险评估'
+        },
+        stages: [
+          {
+            phase: '主诉判断',
+            title: '急诊主诉',
+            stem: '主人说：“煤球从昨晚开始一直蹲猫砂盆，几乎没看到尿，今天不吃东西，还吐了两次。”',
+            question: '接诊分诊应怎样处理？',
+            choices: [
+              ['先预约明天做普通门诊', false],
+              ['按疑似尿道阻塞急症立即评估', true],
+              ['先让主人回家换猫砂观察', false]
+            ],
+            feedback: '公猫、无尿或极少尿、频繁用力、呕吐和食欲废绝构成高危组合，需要立即评估而不是等待。',
+            tip: '无尿线索 + 公猫 + 全身症状 = 急症。',
+            reveal: { history: ['约 12–18 小时未见明确尿团', '频繁蹲盆且痛苦', '食欲废绝并呕吐 2 次'] }
+          },
+          {
+            phase: '重点问诊',
+            title: '快速补充病史',
+            stem: '煤球既往有一次尿频史，但没有确认过尿道阻塞。主人不能确定昨夜是否排出过几滴尿。',
+            question: '急诊问诊最需要迅速补齐什么？',
+            choices: [
+              ['最后一次明确排尿时间、症状进展、既往阻塞/用药和基础病', true],
+              ['幼年时最喜欢吃的零食', false],
+              ['完整行为问卷后再开始体检', false]
+            ],
+            feedback: '急诊问诊应简短但聚焦时间线、排尿证据、进展和既往风险；不能因问诊过长延误体检和稳定性评估。',
+            tip: '急诊病史服务于风险判断，不追求一次问完所有生活细节。',
+            reveal: { history: ['既往有一次尿频史', '主人无法确认是否曾排出几滴尿', '症状持续加重'] }
+          },
+          {
+            phase: '体检分层',
+            title: '急诊体检',
+            stem: '煤球沉郁、脱水，体温 37.3°C，心率 118 次/分。膀胱大、紧张、疼痛明显，难以排空。',
+            question: '哪项判断最关键？',
+            choices: [
+              ['低体温和相对心动过缓提示病情轻', false],
+              ['体检强烈支持阻塞，并需警惕高钾和循环风险', true],
+              ['膀胱大只说明喝水多', false]
+            ],
+            feedback: '大而紧张的疼痛膀胱支持尿流受阻；病猫出现低体温和相对心动过缓时，要警惕代谢紊乱、休克或高钾相关心律问题。',
+            tip: '痛苦的猫没有心动过速，反而要更警惕。',
+            reveal: { exam: ['沉郁、脱水、体温 37.3°C', '心率 118 次/分', '膀胱大、紧张、疼痛，难以排空'] }
+          },
+          {
+            phase: '检查选择',
+            title: '床旁检查优先级',
+            stem: '患者状态不稳定，需要边评估边按医院急症流程处理。',
+            question: '哪组检查最能直接指导当前优先级？',
+            choices: [
+              ['电解质、肾指标、酸碱/血气和心电监护，并按稳定性安排尿检与影像', true],
+              ['只做粪便寄生虫检查', false],
+              ['先完成全面行为评估，再决定是否抽血', false]
+            ],
+            feedback: '疑似阻塞且不稳定时，钾、肾指标、酸碱状态和心电风险会直接改变急症处理顺序。尿检和影像仍有价值，但时机服从患者稳定性。',
+            tip: '急症检查先回答“现在什么会致命”。',
+            reveal: { tests: ['优先电解质与肾指标', '监测心电和灌注状态', '尿检与影像时机服从稳定性'] }
+          },
+          {
+            phase: '报告解读',
+            title: '床旁结果',
+            stem: 'K 7.2 mmol/L，CREA 7.0 mg/dL，BUN 84 mg/dL，磷升高；心电节律缓慢并出现异常。',
+            question: '如何组合解释这些结果？',
+            choices: [
+              ['支持阻塞相关肾后性氮质血症和危及生命的高钾风险', true],
+              ['只说明猫可能长期有慢性肾病', false],
+              ['钾升高与尿道阻塞没有关系', false]
+            ],
+            feedback: '病史、膀胱体检、氮质血症和高钾形成一致证据链。当前不能把肌酐升高直接归为慢性肾病，应观察解除阻塞和改善灌注后的趋势。',
+            tip: '先用病理生理解释组合异常，不逐项孤立看标红。',
+            reveal: { tests: ['K 7.2 mmol/L', 'CREA 7.0 mg/dL，BUN 84 mg/dL', '磷升高，心电节律异常'] }
+          },
+          {
+            phase: '工作诊断',
+            title: '确定当前问题清单',
+            stem: '煤球的阻塞原因尚未细分，但当前全身风险已经明确。',
+            question: '病历首要问题应如何写？',
+            choices: [
+              ['疑似尿道阻塞，伴肾后性氮质血症、高钾及循环/心律风险', true],
+              ['确诊 FIC，其他问题以后再说', false],
+              ['普通尿路感染，不属于急症', false]
+            ],
+            feedback: '问题清单先写影响生存和处置顺序的事实。FIC、尿道栓和尿石属于解除危险后继续鉴别的原发病因层。',
+            tip: '急症病历先列危险问题，再列病因问题。',
+            reveal: { assessment: ['疑似尿道阻塞', '伴肾后性氮质血症和高钾', '存在循环与心律风险'] }
+          },
+          {
+            phase: '沟通管理',
+            title: '急症沟通',
+            stem: '主人问：“能不能先打一针，今晚带回家，明天再处理？”',
+            question: '哪种解释最合适？',
+            choices: [
+              ['可以，回家观察尿量即可', false],
+              ['说明阻塞和高钾可能迅速危及生命，需要立即稳定、解除阻塞并住院监测；具体操作由有经验医师按流程实施', true],
+              ['只告诉主人费用，不解释风险和目标', false]
+            ],
+            feedback: '沟通要清楚说明为什么不能等待、当前治疗目标是什么、为什么需要持续监测，同时避免给出脱离患者状态的保证。',
+            tip: '急症沟通 = 风险 + 立即目标 + 监测必要性。',
+            reveal: { assessment: ['当前目标：稳定患者并解除阻塞风险', '需要持续监测电解质、肾指标、尿量和心律'] }
+          }
+        ]
+      },
+      {
+        id: 'urolith',
+        title: '病例 3 · 膀胱尿石',
+        short: '结晶、影像与结石类型',
+        level: '鉴别',
+        levelClass: 'analysis',
+        patient: '团子 · 家猫 · 7 岁 · 已绝育母猫',
+        objective: '训练目标：区分结晶和尿石，用尿检与影像共同判断，并理解结石成分决定管理路径。',
+        summary: {
+          focus: '影像确认有无结石，成分仍需预测或分析',
+          trap: '看到结晶就宣布结石类型',
+          transfer: '结石管理必须围绕位置、大小、成分和是否阻塞'
+        },
+        stages: [
+          {
+            phase: '主诉判断',
+            title: '复发性主诉',
+            stem: '团子近半年出现过 3 次尿频和血尿，这次仍能排尿，但每次尿量少，精神食欲正常。',
+            question: '复发性症状首先意味着什么？',
+            choices: [
+              ['仍要先确认阻塞风险，并提高对尿石或结构性病因的重视', true],
+              ['复发就一定是 FIC，不需要影像', false],
+              ['母猫不会发生尿石', false]
+            ],
+            feedback: '能排尿使当前完全阻塞风险较低，但反复发作提高了影像和结构性病因评估的价值。',
+            tip: '复发病例要重新审视是否漏掉可识别病因。',
+            reveal: { history: ['半年内 3 次尿频和血尿', '本次仍能排尿', '精神食欲正常'] }
+          },
+          {
+            phase: '重点问诊',
+            title: '寻找尿石线索',
+            stem: '既往只做过一次尿试纸，没有影像。主人曾自行长期使用“酸化尿液”的保健品，饮水较少。',
+            question: '哪项追问最有临床价值？',
+            choices: [
+              ['既往尿检/影像、饮食与补充剂、复发时间线及是否排出过结石', true],
+              ['只问猫砂的颜色', false],
+              ['只要知道喝水少就能确定结石类型', false]
+            ],
+            feedback: '结石风险判断需要完整的既往结果、饮食、补充剂和发作模式。未经监测长期改变尿 pH 可能带来新的风险。',
+            tip: '尿石病史要追踪“过去看到了什么”，不能只记录症状。',
+            reveal: { history: ['既往未做影像', '饮水较少', '曾自行长期使用尿液酸化补充剂'] }
+          },
+          {
+            phase: '体检分层',
+            title: '体格检查',
+            stem: '团子状态稳定，膀胱中等、可排空，触诊有轻度不适；未见明显全身异常。',
+            question: '此时合理的分层是？',
+            choices: [
+              ['目前更像非阻塞性 LUTS，但复发史要求继续寻找尿石', true],
+              ['触诊不到结石，所以影像没有意义', false],
+              ['只要能排尿就不属于泌尿道疾病', false]
+            ],
+            feedback: '膀胱触诊不能可靠排除小结石。当前稳定不代表无需诊断，只是检查可按非阻塞路径推进。',
+            tip: '触诊回答膀胱状态，影像回答结构问题。',
+            reveal: { exam: ['状态稳定', '膀胱中等、可排空', '膀胱触诊轻度不适'] }
+          },
+          {
+            phase: '检查选择',
+            title: '尿检与影像',
+            stem: '你需要确认是否有结石并初步预测成分。',
+            question: '哪组检查最合理？',
+            choices: [
+              ['新鲜尿检 + 腹部 X 光，必要时结合超声；结石取出后送成分分析', true],
+              ['只看尿 pH 就确定所有结石类型', false],
+              ['只做血常规，白细胞正常就排除尿石', false]
+            ],
+            feedback: '影像是发现尿石的关键，X 光与超声各有优势。尿检和影像可帮助预测类型，但最终成分需对结石进行分析。',
+            tip: '“有没有石头”和“是什么石头”是两个问题。',
+            reveal: { tests: ['计划新鲜尿检', '计划腹部 X 光并按需结合超声', '有条件时进行结石成分分析'] }
+          },
+          {
+            phase: '报告解读',
+            title: '检查结果',
+            stem: '尿液 pH 7.4，见磷酸铵镁结晶；X 光显示膀胱内 3 枚边界清楚的不透射线结石，未见尿道阻塞。',
+            question: '哪种解读最准确？',
+            choices: [
+              ['影像确认膀胱尿石；尿液特征提示磷酸铵镁可能，但不能单凭结晶最终定型', true],
+              ['只要有磷酸铵镁结晶，结石一定是磷酸铵镁', false],
+              ['没有尿道阻塞，所以结石没有临床意义', false]
+            ],
+            feedback: '影像证实膀胱尿石；尿 pH 和结晶可用于预测成分，但结晶与结石成分可能不一致，最终定型依赖结石分析。',
+            tip: '影像确认存在，实验室和病史预测组成。',
+            reveal: { tests: ['pH 7.4，见磷酸铵镁结晶', '膀胱内 3 枚不透射线结石', '未见尿道阻塞'] }
+          },
+          {
+            phase: '工作诊断',
+            title: '决定管理方向',
+            stem: '当前预测磷酸铵镁结石可能性较高，但尚无成分分析。',
+            question: '下一步思路应怎样表达？',
+            choices: [
+              ['根据患者和影像预测成分，由医师选择溶解或移除路径，并用复查影像监测；不能把所有结石都当成可溶解', true],
+              ['所有猫结石都可以靠同一种处方粮溶解', false],
+              ['长期自行强化酸化尿液，不需要复查', false]
+            ],
+            feedback: '磷酸铵镁结石可能适合医学溶解，而草酸钙结石不能通过饮食溶解。管理方案取决于预测成分、症状、位置、大小和患者安全，并需要监测。',
+            tip: '结石类型会改变治疗路径，预测必须接受复查验证。',
+            reveal: { assessment: ['诊断：膀胱尿石，当前无尿道阻塞', '磷酸铵镁成分可能性较高但未最终确认', '管理路径需结合成分预测和影像监测'] }
+          },
+          {
+            phase: '沟通管理',
+            title: '纠正宠主误区',
+            stem: '主人说：“网上说酸化尿就能化石，我继续加量是不是更快？”',
+            question: '哪种解释更合适？',
+            choices: [
+              ['不同结石处理不同，过度或盲目酸化有风险；应按医师制定的饮食/处理方案并通过影像复查效果', true],
+              ['加得越多溶解越快', false],
+              ['结石处理后永远不会复发，不需要长期管理', false]
+            ],
+            feedback: '宠主需要理解结石不是单一疾病。饮食或溶解方案必须建立在成分预测和定期复查上，处理后还需根据分析结果制定复发预防。',
+            tip: '沟通重点是“类型不同、路径不同、必须监测”。',
+            reveal: { assessment: ['停止自行调整尿 pH', '按结石类型制定方案并影像复查', '结石分析用于长期复发预防'] }
+          }
+        ]
+      },
+      {
+        id: 'infection',
+        title: '病例 4 · 细菌性膀胱炎',
+        short: '老年猫、培养与药敏',
+        level: '感染',
+        levelClass: 'infection',
+        patient: '豆包 · 家猫 · 13 岁 · 已绝育母猫',
+        objective: '训练目标：识别老年猫感染风险，理解采样和培养的证据价值，并避免“见尿频就用抗菌药”。',
+        summary: {
+          focus: '症状、尿沉渣和定量培养共同判断',
+          trap: '把所有 FLUTD 都当感染，或反过来忽略老年猫感染',
+          transfer: '年龄、基础病和采样方式会改变细菌结果的解释'
+        },
+        stages: [
+          {
+            phase: '主诉判断',
+            title: '老年猫主诉',
+            stem: '豆包近 3 天尿频、尿痛，偶见血尿，但仍能排尿。它有慢性肾病史，近期饮水和尿量一直偏多。',
+            question: '与年轻猫相比，最需要提高警惕的是？',
+            choices: [
+              ['老年和基础病会提高细菌性尿路感染的可能性，但仍需证据确认', true],
+              ['所有老年猫尿频都一定是感染', false],
+              ['慢性肾病可以解释全部症状，不需要尿检', false]
+            ],
+            feedback: '健康成年猫对细菌性膀胱炎相对有抵抗力；老年、尿液较稀和系统性疾病会提高风险，但不能跳过采样和培养。',
+            tip: '风险上升不等于已经确诊。',
+            reveal: { history: ['尿频、尿痛和偶见血尿 3 天', '仍能排尿', '13 岁，有慢性肾病史', '长期饮水和尿量偏多'] }
+          },
+          {
+            phase: '重点问诊',
+            title: '感染风险病史',
+            stem: '豆包半年内有两次类似发作，外院曾直接使用抗菌药但未做培养。没有近期导尿史。',
+            question: '下一步最重要的病史信息是什么？',
+            choices: [
+              ['既往用药名称与反应、复发间隔、基础病控制及既往培养结果', true],
+              ['只问猫砂品牌', false],
+              ['既然以前用药好转，就无需再确认感染', false]
+            ],
+            feedback: '复发病例要区分复燃、再感染或原诊断不准确。既往抗菌药暴露还会影响耐药风险和培养解释。',
+            tip: '复发感染病例要追踪“药物—反应—复发时间线”。',
+            reveal: { history: ['半年内两次类似发作', '既往经验性使用过抗菌药', '既往未做尿培养', '无近期导尿史'] }
+          },
+          {
+            phase: '体检分层',
+            title: '体格检查',
+            stem: '豆包精神尚可，体温 38.6°C，水合轻度不足；膀胱小至中等、可排空，触诊轻度不适，无肾区明显疼痛。',
+            question: '当前分层最合适的是？',
+            choices: [
+              ['目前无完全阻塞证据，可按稳定的下泌尿道病例进一步确认感染', true],
+              ['没有发热就排除细菌感染', false],
+              ['母猫不存在尿道阻塞风险，所以无需检查膀胱', false]
+            ],
+            feedback: '无发热不能排除细菌性膀胱炎。当前稳定且能排尿，可以系统采样，但仍需关注基础病和上尿路线索。',
+            tip: '体温正常不能代替尿培养。',
+            reveal: { exam: ['精神尚可，轻度水合不足', '膀胱可排空，轻度不适', '无明显肾区疼痛'] }
+          },
+          {
+            phase: '检查选择',
+            title: '如何确认感染',
+            stem: '患者稳定，尚未在本次发作中使用抗菌药。',
+            question: '哪种采样和检查策略最合理？',
+            choices: [
+              ['尽量在用药前取得膀胱穿刺尿，完成尿检、定量培养和药敏', true],
+              ['从猫砂盆收集旧尿，只看试纸就决定长期用药', false],
+              ['先用药一周，失败后再考虑是否采样', false]
+            ],
+            feedback: '怀疑细菌性膀胱炎时，应尽量在抗菌药前采样。膀胱穿刺减少下尿路污染，培养是确认感染和指导选药的关键。',
+            tip: '先取得可解释的样本，再谈抗菌药。',
+            reveal: { tests: ['本次用药前膀胱穿刺采样', '提交尿检、定量培养和药敏'] }
+          },
+          {
+            phase: '报告解读',
+            title: '尿检与培养',
+            stem: 'USG 1.018，RBC 20–30/HPF，WBC 30–50/HPF，可见杆菌。培养为单一大肠杆菌显著生长，并报告药敏结果。',
+            question: '如何解读这组结果？',
+            choices: [
+              ['症状、脓尿、膀胱穿刺样本菌尿和显著单一菌生长共同支持细菌性膀胱炎', true],
+              ['只要 USG 低就能确诊感染', false],
+              ['培养结果可忽略，按经验任意选择药物', false]
+            ],
+            feedback: '这是相互一致的感染证据链。与自然排尿样本中的少量混合细菌不同，膀胱穿刺样本的显著单一菌生长更有诊断价值。',
+            tip: '感染诊断看的是“临床症状 + 炎症 + 可解释的培养”。',
+            reveal: { tests: ['USG 1.018', 'RBC 20–30/HPF，WBC 30–50/HPF', '沉渣见杆菌', '培养：单一大肠杆菌显著生长，已出药敏'] }
+          },
+          {
+            phase: '工作诊断',
+            title: '形成感染诊断',
+            stem: '培养和药敏已经返回，豆包有相应下泌尿道症状。',
+            question: '当前最合适的工作判断和计划原则是？',
+            choices: [
+              ['细菌性膀胱炎；由医师结合药敏、患者肾功能和既往用药制定方案，并寻找复发易感因素', true],
+              ['只是 FIC，不需要理会培养', false],
+              ['以后每次尿频都可直接重复同一种抗菌药', false]
+            ],
+            feedback: '培养支持细菌性膀胱炎，但复发和基础病提示还要寻找尿液稀释、结构异常或系统性疾病等易感因素。药敏不是脱离患者直接照抄处方。',
+            tip: '诊断感染后，还要问“为什么这只猫反复感染”。',
+            reveal: { assessment: ['工作诊断：细菌性膀胱炎', '按培养与药敏制定个体化方案', '评估慢性肾病及其他复发易感因素'] }
+          },
+          {
+            phase: '沟通管理',
+            title: '抗菌药沟通',
+            stem: '主人问：“既然这次是感染，以后再尿频就直接吃剩下的药行吗？”',
+            question: '哪种回答最合适？',
+            choices: [
+              ['不建议自行重复用药；下次症状可能由不同病因或不同细菌引起，复发时应重新评估并按培养结果决定', true],
+              ['可以，所有尿频都是同一种感染', false],
+              ['只要症状消失就不需要关注基础病和复查', false]
+            ],
+            feedback: '抗菌药管理要避免剩药复用和经验性长期治疗。复发时重新确认病因，有助于避免漏诊非感染性 FLUTD 和减少耐药风险。',
+            tip: '一次培养阳性，不代表以后所有发作都是同一感染。',
+            reveal: { assessment: ['不自行重复剩余抗菌药', '复发时重新采样和判断病因', '同步管理基础病和复发风险'] }
+          }
+        ]
+      }
+    ];
+
+    const tabs = document.querySelectorAll('[data-tab]');
+    const panels = document.querySelectorAll('.panel');
+    const navButtons = document.querySelectorAll('[data-jump]');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const bestScore = document.getElementById('bestScore');
+
+    function setTab(id) {
+      state.activeTab = id;
+      state.completedSections.add(id);
+      localStorage.setItem('vetTrainerSections', JSON.stringify([...state.completedSections]));
+      tabs.forEach(button => button.classList.toggle('active', button.dataset.tab === id));
+      navButtons.forEach(button => button.classList.toggle('active', button.dataset.jump === id));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === id));
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const sectionProgress = Math.round((state.completedSections.size / 7) * 60);
+      const completedCases = trainingCases.filter(item => state.caseResults[item.id]?.completed).length;
+      const quizProgress = Math.round((completedCases / trainingCases.length) * 30);
+      const checklistProgress = document.querySelectorAll('input[type="checkbox"]:checked').length ? 10 : 0;
+      const total = Math.min(100, sectionProgress + quizProgress + checklistProgress);
+      progressText.textContent = total + '%';
+      progressBar.style.width = total + '%';
+      bestScore.textContent = completedCases ? completedCases + '/4' : '未完成';
+    }
+
+    tabs.forEach(button => button.addEventListener('click', () => setTab(button.dataset.tab)));
+    navButtons.forEach(button => button.addEventListener('click', () => setTab(button.dataset.jump)));
+    document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', updateProgress);
+    });
+
+    const reportButtons = document.querySelectorAll('[data-report-target]');
+    const reportCases = document.querySelectorAll('.report-case');
+
+    reportButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.reportTarget;
+        reportButtons.forEach(item => {
+          const selected = item === button;
+          item.classList.toggle('active', selected);
+          item.setAttribute('aria-selected', String(selected));
+        });
+        reportCases.forEach(report => report.classList.toggle('active', report.id === targetId));
+      });
+    });
+
+    document.querySelectorAll('.lab-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const question = option.closest('.lab-question');
+        const options = question.querySelectorAll('.lab-option');
+        const isCorrect = option.dataset.correct === 'true';
+
+        options.forEach(item => {
+          item.disabled = true;
+          if (item.dataset.correct === 'true') item.classList.add('correct');
+        });
+        if (!isCorrect) option.classList.add('wrong');
+
+        const feedbackBox = question.querySelector('.lab-feedback');
+        feedbackBox.innerHTML = '<b>' + (isCorrect ? '判断正确' : '再看一次证据链') + '</b><br>' + question.dataset.feedback;
+        feedbackBox.classList.add('show');
+      });
+    });
+
+    const caseTitle = document.getElementById('caseTitle');
+    const caseStem = document.getElementById('caseStem');
+    const questionText = document.getElementById('questionText');
+    const choices = document.getElementById('choices');
+    const feedback = document.getElementById('feedback');
+    const nextQuestion = document.getElementById('nextQuestion');
+    const resetQuiz = document.getElementById('resetQuiz');
+    const liveScore = document.getElementById('liveScore');
+    const quizMeter = document.getElementById('quizMeter');
+    const coachTip = document.getElementById('coachTip');
+    const caseLibrary = document.getElementById('caseLibrary');
+    const caseStagebar = document.getElementById('caseStagebar');
+    const caseObjective = document.getElementById('caseObjective');
+    const caseCounter = document.getElementById('caseCounter');
+    const caseStageTitle = document.getElementById('caseStageTitle');
+    const stageLabel = document.getElementById('stageLabel');
+    const caseComplete = document.getElementById('caseComplete');
+    const caseCompleteText = document.getElementById('caseCompleteText');
+    const caseResultGrid = document.getElementById('caseResultGrid');
+    const nextCase = document.getElementById('nextCase');
+    const recordPatient = document.getElementById('recordPatient');
+    const recordMeta = document.getElementById('recordMeta');
+    const historyRecord = document.getElementById('historyRecord');
+    const examRecord = document.getElementById('examRecord');
+    const testRecord = document.getElementById('testRecord');
+    const assessmentRecord = document.getElementById('assessmentRecord');
+    const caseObjectiveCard = document.getElementById('caseObjectiveCard');
+
+    function currentCase() {
+      return trainingCases[state.caseIndex];
+    }
+
+    function currentStage() {
+      return currentCase().stages[state.caseStep];
+    }
+
+    function renderCaseLibrary() {
+      caseLibrary.innerHTML = '';
+      trainingCases.forEach((item, index) => {
+        const result = state.caseResults[item.id];
+        const button = document.createElement('button');
+        button.className = 'case-select' +
+          (index === state.caseIndex ? ' active' : '') +
+          (result?.completed ? ' complete' : '');
+        button.setAttribute('aria-pressed', String(index === state.caseIndex));
+        button.innerHTML =
+          '<span class="case-level ' + item.levelClass + '">' + item.level + '</span>' +
+          '<b>' + item.title + '</b>' +
+          '<span>' + item.short + (result?.best !== undefined ? ' · 最高 ' + result.best + '/7' : '') + '</span>';
+        button.addEventListener('click', () => switchCase(index));
+        caseLibrary.appendChild(button);
+      });
+    }
+
+    function renderStagebar() {
+      const item = currentCase();
+      caseStagebar.innerHTML = '';
+      item.stages.forEach((stage, index) => {
+        const node = document.createElement('div');
+        const isDone = state.caseFinished || index < state.caseStep;
+        node.className = 'stage-node' + (index === state.caseStep && !state.caseFinished ? ' current' : '') + (isDone ? ' done' : '');
+        node.innerHTML = '<b>' + (isDone ? '✓' : index + 1) + '</b><span>' + stage.phase + '</span>';
+        caseStagebar.appendChild(node);
+      });
+    }
+
+    function collectRecords() {
+      const records = { history: [], exam: [], tests: [], assessment: [] };
+      currentCase().stages.slice(0, state.caseStep + 1).forEach(stage => {
+        Object.entries(stage.reveal || {}).forEach(([group, items]) => {
+          items.forEach(item => {
+            if (!records[group].includes(item)) records[group].push(item);
+          });
+        });
+      });
+      return records;
+    }
+
+    function renderRecordList(element, items) {
+      element.innerHTML = items.length
+        ? items.map(item => '<div class="record-item">' + item + '</div>').join('')
+        : '<div class="record-empty">随病例推进逐步补充</div>';
+    }
+
+    function renderPatientRecord() {
+      const item = currentCase();
+      const records = collectRecords();
+      recordPatient.textContent = item.patient.split(' · ')[0];
+      recordMeta.textContent = item.patient.split(' · ').slice(1).join(' · ');
+      renderRecordList(historyRecord, records.history);
+      renderRecordList(examRecord, records.exam);
+      renderRecordList(testRecord, records.tests);
+      renderRecordList(assessmentRecord, records.assessment);
+      caseObjectiveCard.textContent = item.objective;
+    }
+
+    function renderCase() {
+      const item = currentCase();
+      const stage = currentStage();
+      state.answered = false;
+      state.caseFinished = false;
+      caseComplete.classList.remove('show');
+      feedback.classList.remove('show');
+      feedback.textContent = '';
+      nextQuestion.disabled = true;
+      nextQuestion.textContent = state.caseStep === item.stages.length - 1 ? '完成病例' : '进入下一阶段';
+      caseTitle.textContent = item.title;
+      caseObjective.textContent = item.short;
+      caseCounter.textContent = '病例 ' + (state.caseIndex + 1) + '/4 · 阶段 ' + (state.caseStep + 1) + '/7';
+      caseStageTitle.textContent = stage.title;
+      caseStem.textContent = stage.stem;
+      stageLabel.textContent = stage.phase;
+      questionText.textContent = stage.question;
+      coachTip.textContent = stage.tip;
+      choices.innerHTML = '';
+      stage.choices.forEach(([text, correct], index) => {
+        const button = document.createElement('button');
+        button.className = 'choice';
+        button.textContent = text;
+        button.dataset.choiceIndex = String(index);
+        button.addEventListener('click', () => chooseAnswer(button, correct, stage.feedback));
+        choices.appendChild(button);
+      });
+      renderCaseLibrary();
+      renderStagebar();
+      renderPatientRecord();
+      updateQuizScore();
+    }
+
+    function chooseAnswer(button, correct, text) {
+      if (state.answered) return;
+      state.answered = true;
+      if (correct) state.caseScore += 1;
+      const stage = currentStage();
+      choices.querySelectorAll('.choice').forEach(choice => {
+        choice.disabled = true;
+        const choiceIndex = Number(choice.dataset.choiceIndex);
+        if (stage.choices[choiceIndex][1]) choice.classList.add('correct');
+      });
+      if (!correct) button.classList.add('wrong');
+      feedback.innerHTML = '<b>' + (correct ? '判断正确' : '这里要重新组织证据') + '</b><br>' + text;
+      feedback.classList.add('show');
+      nextQuestion.disabled = false;
+      updateQuizScore();
+    }
+
+    function updateQuizScore() {
+      const total = currentCase().stages.length;
+      liveScore.textContent = state.caseScore + '/' + total;
+      quizMeter.style.width = Math.round((state.caseScore / total) * 100) + '%';
+    }
+
+    function completeCurrentCase() {
+      const item = currentCase();
+      const previousBest = state.caseResults[item.id]?.best || 0;
+      state.caseResults[item.id] = {
+        completed: true,
+        best: Math.max(previousBest, state.caseScore)
+      };
+      localStorage.setItem('vetTrainerCaseResults', JSON.stringify(state.caseResults));
+      state.caseFinished = true;
+      state.completedSections.add('quiz');
+      localStorage.setItem('vetTrainerSections', JSON.stringify([...state.completedSections]));
+      caseCompleteText.textContent = '本次得分 ' + state.caseScore + '/7，历史最高 ' + state.caseResults[item.id].best + '/7。';
+      caseResultGrid.innerHTML =
+        '<div><b>核心能力</b><span>' + item.summary.focus + '</span></div>' +
+        '<div><b>常见陷阱</b><span>' + item.summary.trap + '</span></div>' +
+        '<div><b>迁移应用</b><span>' + item.summary.transfer + '</span></div>';
+      caseComplete.classList.add('show');
+      nextQuestion.disabled = true;
+      nextCase.textContent = state.caseIndex === trainingCases.length - 1 ? '回到病例 1' : '进入下一病例';
+      renderCaseLibrary();
+      renderStagebar();
+      updateProgress();
+    }
+
+    function switchCase(index) {
+      state.caseIndex = index;
+      state.caseStep = 0;
+      state.caseScore = 0;
+      state.answered = false;
+      state.caseFinished = false;
+      renderCase();
+    }
+
+    nextQuestion.addEventListener('click', () => {
+      if (state.caseStep < currentCase().stages.length - 1) {
+        state.caseStep += 1;
+        renderCase();
+      } else {
+        completeCurrentCase();
+      }
+    });
+
+    resetQuiz.addEventListener('click', () => {
+      state.caseStep = 0;
+      state.caseScore = 0;
+      state.answered = false;
+      state.caseFinished = false;
+      renderCase();
+    });
+
+    nextCase.addEventListener('click', () => {
+      switchCase((state.caseIndex + 1) % trainingCases.length);
+    });
+
+    const chatLog = document.getElementById('chatLog');
+    const doctorReply = document.getElementById('doctorReply');
+    const scoreReply = document.getElementById('scoreReply');
+    const resetChat = document.getElementById('resetChat');
+    const commScore = document.getElementById('commScore');
+
+    function scoreCommunication(text) {
+      const rules = [
+        { name: '风险提示', words: ['尿闭', '无尿', '急', '危及', '生命', '肾', '电解质'], max: 25 },
+        { name: '检查解释', words: ['检查', '膀胱', '尿检', '血检', '电解质', '肾功能', '确认'], max: 25 },
+        { name: '同理心', words: ['理解', '担心', '时间', '费用', '先', '我们'], max: 25 },
+        { name: '表达清晰', words: ['因为', '所以', '建议', '现在', '如果', '需要'], max: 25 }
+      ];
+      return rules.map(rule => {
+        const hits = rule.words.filter(word => text.includes(word)).length;
+        return { name: rule.name, score: Math.min(rule.max, 8 + hits * 5) };
+      });
+    }
+
+    scoreReply.addEventListener('click', () => {
+      const text = doctorReply.value.trim();
+      if (!text) {
+        commScore.innerHTML = '<p>先输入一段你准备对宠主说的话，再提交评分。</p>';
+        return;
+      }
+      const doctorBubble = document.createElement('div');
+      doctorBubble.className = 'bubble doctor';
+      doctorBubble.textContent = text;
+      chatLog.appendChild(doctorBubble);
+      const result = scoreCommunication(text);
+      const total = result.reduce((sum, item) => sum + item.score, 0);
+      commScore.innerHTML = '<p><b>沟通得分：' + total + '/100</b></p>' + result.map(item =>
+        '<div class="score-item"><span>' + item.name + '：' + item.score + '/25</span><div class="score-line"><span style="width:' + item.score * 4 + '%"></span></div></div>'
+      ).join('') + '<p>建议模板：我理解您现在时间紧，但公猫如果尿不出来，可能不是普通炎症，而是尿道阻塞。我们需要先确认膀胱和排尿情况，并检查肾功能、电解质风险；如果确认没有阻塞，再根据尿检和情况讨论用药和回家护理。</p>';
+      state.completedSections.add('client');
+      localStorage.setItem('vetTrainerSections', JSON.stringify([...state.completedSections]));
+      updateProgress();
+    });
+
+    resetChat.addEventListener('click', () => {
+      chatLog.innerHTML = '<div class="bubble owner">医生，我家公猫今天一直去猫砂盆，蹲很久也看不出尿，叫得很惨。能不能先开点消炎药？我今天时间有点紧。</div>';
+      doctorReply.value = '';
+      commScore.innerHTML = '<p>提交后会从风险提示、检查解释、同理心、表达清晰度四个维度给反馈。</p>';
+    });
+
+    renderCase();
+    updateProgress();
+  </script>
+  <script src="aki-module.js"></script>
+</body>
+</html>
