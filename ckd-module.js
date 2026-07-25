@@ -8,6 +8,10 @@
       <span>基础班样板模块</span>
     </div>
 
+    <figure class="rail-visual">
+      <img src="vet-companions.png" alt="一只金色幼犬与一只灰白虎斑猫并肩坐着">
+    </figure>
+
     <div class="module-switch" aria-label="课程切换">
       <a href="index.html"><b>模块 01 · FLUTD</b>猫下泌尿道综合征</a>
       <a class="active" href="ckd.html"><b>模块 02 · CKD</b>猫慢性肾病</a>
