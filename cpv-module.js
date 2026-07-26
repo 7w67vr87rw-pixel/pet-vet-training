@@ -25,6 +25,7 @@
       <button data-jump="path">接诊路径</button>
       <button data-jump="checklist">问诊体检</button>
       <button data-jump="labs">化验解读</button>
+      <button data-jump="treatment">治疗管理</button>
       <button data-jump="quiz">病例中心</button>
       <button data-jump="client">宠主模拟</button>
       <button data-jump="review">复盘</button>
@@ -43,11 +44,12 @@
     </section>
 
     <section class="tabs" aria-label="内容分区">
-      <div class="tabs-guide"><strong>学习流程</strong><span>共 7 个环节，建议依次完成</span></div>
+      <div class="tabs-guide"><strong>学习流程</strong><span>共 8 个环节，建议依次完成</span></div>
       <button class="active" data-tab="overview">学习笔记</button>
       <button data-tab="path">接诊路径</button>
       <button data-tab="checklist">问诊体检</button>
       <button data-tab="labs">化验解读</button>
+      <button data-tab="treatment">治疗管理</button>
       <button data-tab="quiz">病例中心</button>
       <button data-tab="client">宠主模拟</button>
       <button data-tab="review">复盘</button>
@@ -159,6 +161,7 @@
               <div class="cascade-step"><b>尽早恢复肠内营养</b><span>呕吐得到控制且患者允许时，逐步提供可耐受营养，而不是长期无指征禁食。</span></div>
               <div class="cascade-step"><b>管理细菌移位风险</b><span>肠屏障破坏、显著中性粒细胞减少或脓毒症风险会影响抗菌药决策，由医师结合严重度进行管理。</span></div>
             </div>
+            <p><b>这一节只建立目标。</b>具体液体拆分、药物类别、营养启动、监测调整和门诊方案请进入独立的“治疗管理”环节学习。</p>
           </section>
 
           <section class="note-block danger-box">
@@ -360,6 +363,165 @@
       </section>
     </section>
 
+    <section id="treatment" class="panel">
+      <article class="card">
+        <div class="eyebrow">治疗管理 · 从异常到行动</div>
+        <h2>犬细小没有一张适用于所有患者的固定处方</h2>
+        <p>核心是把患者的问题拆成灌注、脱水与持续丢失、呕吐和疼痛、细菌移位风险、低血糖/电解质、营养和并发症七条线。每项干预都要写清目标、复查指标和升级条件。</p>
+        <div class="tag-row"><span class="tag danger">先复苏</span><span class="tag">补足持续丢失</span><span class="tag warn">早期肠内营养</span><span class="tag">按反应调整</span></div>
+      </article>
+
+      <article class="card">
+        <h2>治疗顺序：先处理会在数小时内恶化的问题</h2>
+        <div class="cascade">
+          <div class="cascade-step"><b>1. 隔离 + 快速稳定</b><span>建立隔离动线，称重，评估 ABC、意识、灌注、体温和床旁血糖；不稳定患者边复苏边采样。</span></div>
+          <div class="cascade-step"><b>2. 建立问题清单</b><span>休克、脱水、持续丢失、低血糖/低钾、呕吐、腹痛、中性粒细胞减少和低蛋白分别记录。</span></div>
+          <div class="cascade-step"><b>3. 组合支持</b><span>液体、止吐、镇痛、抗菌药、营养和代谢纠正同步安排，而不是只“挂水观察”。</span></div>
+          <div class="cascade-step"><b>4. 复查并改方案</b><span>用意识、脉搏、CRT、血压、体重、尿量、乳酸、血糖、电解质和丢失量验证治疗反应。</span></div>
+          <div class="cascade-step"><b>5. 识别退出路径</b><span>达到稳定和摄入标准才考虑出院；任何低灌注、顽固呕吐或照护失败都要升级住院/转诊。</span></div>
+        </div>
+      </article>
+
+      <div class="grid two">
+        <article class="card">
+          <h2>1. 液体治疗要拆成四笔账</h2>
+          <table class="matrix">
+            <thead><tr><th>组成</th><th>回答的问题</th><th>执行要点</th></tr></thead>
+            <tbody>
+              <tr><td>复苏量</td><td>当前是否低灌注或休克？</td><td>由医师选择平衡等渗晶体液并分次给予，每次后立即复查意识、脉搏、CRT、血压、肺音和乳酸趋势。</td></tr>
+              <tr><td>脱水缺失量</td><td>入院前已经缺了多少？</td><td><b>估算缺失量（mL）= 脱水比例 × 体重（kg）× 1000</b>。这是估算值，需用称重和复查修正。</td></tr>
+              <tr><td>维持需要</td><td>基础生理需要是多少？</td><td>根据年龄、体重、肾功能和摄入情况制定，不把维持量当成全部输液量。</td></tr>
+              <tr><td>持续丢失</td><td>治疗后还在吐和拉多少？</td><td>呕吐、腹泻、尿量和采血等按班次记录并补回；持续丢失变化时及时重算。</td></tr>
+            </tbody>
+          </table>
+          <p class="disclaimer">皮下或口服液体只适用于经医师筛选的稳定、轻度脱水患者。中重度脱水、休克、顽固呕吐或吸收不可靠时通常需要静脉通路和住院监测。</p>
+        </article>
+
+        <article class="card">
+          <h2>补液后怎样判断“有效”而不是只看滴速</h2>
+          <table class="matrix">
+            <thead><tr><th>复查维度</th><th>期待方向</th><th>异常时想到什么</th></tr></thead>
+            <tbody>
+              <tr><td>灌注</td><td>意识改善、脉搏增强、CRT/血压和乳酸向好</td><td>复苏不足、持续丢失、脓毒症、低血糖或其他休克原因</td></tr>
+              <tr><td>体重/水合</td><td>缺失逐渐纠正且不过快增加</td><td>记录遗漏、持续丢失未补足，或液体过负荷</td></tr>
+              <tr><td>尿量</td><td>灌注改善后产生可解释尿量</td><td>低灌注持续、肾损伤、梗阻或记录不完整</td></tr>
+              <tr><td>呼吸/肺音</td><td>呼吸状态稳定</td><td>呼吸频率上升、湿啰音或体重异常增加时警惕液体过负荷</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <h2>2. 血糖、电解质与酸碱</h2>
+          <ul>
+            <li><b>低血糖：</b>幼犬、长期厌食和脓毒症患者风险高。纠正后仍要连续复查，因为一次正常不代表风险消失。</li>
+            <li><b>低钾：</b>胃肠丢失和摄入不足常见，可造成无力、胃肠动力下降和心律问题。补钾必须由医师计算，确认液体混匀、泵速可靠并关注尿量。</li>
+            <li><b>钠/氯和酸碱：</b>不能凭单值机械换液；要结合丢失类型、补液种类、神经状态和变化速度。</li>
+            <li><b>助理任务：</b>标注采样时间、当时液体与营养方案、最近呕吐腹泻和体重，避免把无时间背景的结果交给医师。</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>3. 止吐、胃肠动力与镇痛</h2>
+          <ul>
+            <li><b>止吐目标：</b>减少继续脱水、改善舒适度，并为口服液体和肠内营养创造条件。常见选择包括马罗匹坦或昂丹司琼，具体药物与途径由医师决定。</li>
+            <li><b>仍然呕吐：</b>先核对给药、液体和持续丢失，再排查胃潴留、异物、套叠、胰腺炎或严重腹膜/脓毒症问题；不能只叠加止吐药。</li>
+            <li><b>胃肠动力药：</b>只有在机械性梗阻被合理排除、且确有胃潴留/动力不足时才考虑。</li>
+            <li><b>疼痛：</b>腹痛会降低摄入并影响恢复，常需要适合低灌注患者的镇痛方案。脱水、低血压或肾灌注不足时避免自行使用 NSAIDs。</li>
+            <li><b>止泻药：</b>不作为常规核心治疗；抑制肠内容物排出可能增加受损肠道中的细菌移位和并发风险。</li>
+          </ul>
+        </article>
+
+        <article class="card danger-box">
+          <h2>4. 抗菌药：针对屏障破坏和脓毒症风险，不是“杀细小病毒”</h2>
+          <ul>
+            <li>CPV 破坏肠屏障并常伴中性粒细胞减少，重症、发热或低体温、低血压、左移、显著中性粒细胞减少等患者通常需要肠外抗菌覆盖。</li>
+            <li>基础思路是覆盖肠源性革兰阳性、厌氧菌；重症或显著中性粒细胞减少时由医师评估增加革兰阴性覆盖。</li>
+            <li>选择时同时考虑幼犬年龄、肾灌注、脱水状态、既往用药和当地耐药情况。氨基糖苷类在脱水和肾灌注未纠正前风险更高。</li>
+            <li>持续发热/低体温、低血压或治疗反应差时，重新寻找导管感染、腹腔并发症或其他感染灶，并按条件采样培养。</li>
+            <li>记录首次给药时间、途径、后续体温/白细胞和临床反应；不要把“已用抗菌药”等同于感染风险已解决。</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>5. 早期肠内营养不是等到完全不吐才开始</h2>
+          <ul>
+            <li>传统的长时间禁食会延迟肠黏膜恢复。住院厌食犬在稳定后应尽早制定肠内营养计划。</li>
+            <li>无法自主摄入时，医师可评估鼻食管/鼻胃管，以少量、易消化、低脂液体食物持续或分次喂饲。</li>
+            <li>喂饲后记录恶心、呕吐、腹胀、腹痛和腹泻变化；耐受后逐步提高，而不是一次达到全量。</li>
+            <li>能控制呕吐并保持水分后，可逐步恢复饮水和高消化率饮食。肠外营养一般留给长期不能耐受肠内营养的患者。</li>
+            <li>寄生虫风险应同时评估；驱虫时机和方案要结合稳定性、粪检、年龄与既往用药。</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>6. 低蛋白、贫血和血液制品</h2>
+          <ul>
+            <li>PCV 与总蛋白要成对看：脱水可使 PCV 偏高，而肠道丢失可使总蛋白/白蛋白下降。</li>
+            <li>明显低白蛋白并伴外周水肿、腹水、胸腔积液或循环问题时，需要升级评估胶体渗透压支持和并发症。</li>
+            <li>新鲜冰冻血浆只能部分补充白蛋白，同时提供凝血及其他血浆成分；是否使用不能只按一个白蛋白数字决定。</li>
+            <li>全血或红细胞制品依据有临床意义的贫血、持续出血和氧输送判断，并非看到血便就常规输血。</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>7. 单克隆抗体和其他辅助疗法</h2>
+          <table class="matrix">
+            <thead><tr><th>项目</th><th>当前定位</th><th>学习结论</th></tr></thead>
+            <tbody>
+              <tr><td>犬细小病毒单克隆抗体</td><td>部分国家/地区可获得，研究结果有希望</td><td>在当地合法可用且符合产品条件时可由医师评估，不能替代液体、抗菌、止吐、营养和监测。</td></tr>
+              <tr><td>康复犬血清/高免血清</td><td>缺乏支持其被动免疫获益的可靠证据</td><td>不应因为“有抗体”就替代标准支持治疗。</td></tr>
+              <tr><td>奥司他韦</td><td>研究未显示降低住院时间、严重度或死亡率</td><td>不是 CPV 的常规治疗。</td></tr>
+              <tr><td>粪菌移植</td><td>有小型研究提示可能缩短腹泻/住院时间</td><td>属于有条件的辅助技术，需要严格供体筛查和医院流程，不是基础班常规操作。</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+
+      <article class="card">
+        <h2>住院治疗闭环：每次复查都要能回答“继续、调整还是升级”</h2>
+        <table class="matrix">
+          <thead><tr><th>观察结果</th><th>首先核对</th><th>可能的方案调整方向</th></tr></thead>
+          <tbody>
+            <tr><td>脉搏仍弱、血压低、乳酸不降</td><td>复苏量、持续丢失、体温、血糖、测量质量</td><td>重新评估休克类型、液体反应、脓毒症与转诊/高级监护需要</td></tr>
+            <tr><td>血糖反复下降</td><td>输注是否中断、摄入、感染和肝功能风险</td><td>调整葡萄糖支持并缩短复查间隔，同时处理根本原因</td></tr>
+            <tr><td>钾继续下降、无力或肠鸣减弱</td><td>补钾浓度/泵速、尿量和持续胃肠丢失</td><td>医师重算补充并加强心律、尿量和电解质监测</td></tr>
+            <tr><td>呕吐持续或出现局灶腹痛</td><td>止吐执行、喂饲耐受和腹部检查</td><td>调整症状控制并使用影像排除异物、套叠等并发症</td></tr>
+            <tr><td>体重快速增加、呼吸加快</td><td>输入输出记录、尿量、肺音和外周水肿</td><td>警惕液体过负荷，立即重新评估液体计划</td></tr>
+            <tr><td>中性粒细胞进一步下降并低体温</td><td>抗菌给药时间、导管和其他感染灶</td><td>按脓毒症升级监护、抗菌策略和感染源排查</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <div class="grid two">
+        <article class="card">
+          <h2>结构化门诊方案必须同时满足</h2>
+          <ul>
+            <li>患者目前循环稳定，无低血糖、低体温、意识异常或中重度脱水。</li>
+            <li>呕吐已能控制，可按协议接受皮下/口服液体、药物和少量营养。</li>
+            <li>有 CBC、血糖/电解质、体重和水合基线，能够每日复诊并比较趋势。</li>
+            <li>照护者能隔离、记录摄入输出，并理解立即返回医院的具体触发条件。</li>
+            <li>门诊是降低照护强度，不是取消治疗；任何资格条件消失都应改为住院或转诊。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>出院前不是只看“今天没拉”</h2>
+          <ul>
+            <li>循环、体温、血糖和电解质稳定，不再依赖持续静脉复苏。</li>
+            <li>能自主摄入并留住水和食物，呕吐受控，腹泻量和频率明显改善。</li>
+            <li>精神、体重和尿量趋势可接受，没有新的腹痛或脓毒症线索。</li>
+            <li>口服/居家方案、复查时间、恶化标准、隔离消毒和同住犬管理已书面交代。</li>
+            <li>临床改善不等于立即停止排毒；恢复期隔离和活动时间按医院与当地指南执行。</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="card memory-box">
+        <h2>助理交班模板</h2>
+        <p><b>“患者目前是否稳定；本班输入、尿量、呕吐和腹泻各多少；体重怎样变化；最近血糖、电解质、PCV/TS、白细胞和白蛋白趋势；止吐、镇痛、抗菌和营养何时执行；下一次复查与立即上报条件是什么。”</b></p>
+        <p class="disclaimer">本环节用于训练治疗思路和监测闭环，不提供可脱离患者使用的处方。实际液体速度、葡萄糖/电解质补充、抗菌药、止吐镇痛、营养管和血液制品均须由执业兽医结合检查结果制定。</p>
+      </article>
+    </section>
+
     <section id="quiz" class="panel">
       <article class="card">
         <h2>犬细小递进病例中心</h2>
@@ -403,10 +565,10 @@
 
     <section id="review" class="panel">
       <div class="grid two">
-        <article class="card"><h2>基础班复盘题</h2><ul><li>为什么没有血便仍不能排除犬细小？</li><li>为什么疑似病例要在检测结果前隔离？</li><li>首次抗原阴性时，哪些因素会让你继续高度怀疑？</li><li>怎样从 CBC、生化和灌注指标判断病例正在恶化？</li><li>为什么抗原阳性仍要保留异物或套叠鉴别？</li><li>门诊方案需要满足哪些患者与照护条件？</li></ul></article>
-        <article class="card"><h2>产品体验观察点</h2><ul><li>用户是否真正建立“先隔离再检测”的顺序？</li><li>化验解读是否能从单值转向趋势和临床状态？</li><li>四个病例是否覆盖初诊、假阴性、恶化和资源限制？</li><li>宠主沟通能否同时解释疫苗、检测和住院理由？</li></ul></article>
+        <article class="card"><h2>基础班复盘题</h2><ul><li>为什么没有血便仍不能排除犬细小？</li><li>为什么疑似病例要在检测结果前隔离？</li><li>首次抗原阴性时，哪些因素会让你继续高度怀疑？</li><li>液体计划为什么必须分为复苏、缺失、维持和持续丢失？</li><li>为什么不能长期禁食或只依靠止吐药处理持续呕吐？</li><li>抗菌药在 CPV 中针对什么风险，而不是针对什么？</li><li>怎样从 CBC、生化和灌注指标判断病例正在恶化？</li><li>门诊和出院分别需要满足哪些条件？</li></ul></article>
+        <article class="card"><h2>产品体验观察点</h2><ul><li>用户是否真正建立“先隔离再检测”的顺序？</li><li>化验解读是否能从单值转向趋势和临床状态？</li><li>治疗管理是否能从“开药清单”转向问题、目标、复查和调整闭环？</li><li>四个病例是否覆盖初诊、假阴性、恶化和资源限制？</li><li>宠主沟通能否同时解释疫苗、检测和住院理由？</li></ul></article>
       </div>
-      <article class="card"><h2>能力边界</h2><div class="tag-row"><span class="tag">隔离路径</span><span class="tag">严重度判断</span><span class="tag">报告趋势</span><span class="tag">门诊筛选</span><span class="tag">院感沟通</span></div><p class="disclaimer">教学提示：真实犬细小管理取决于患者灌注、持续丢失、血糖、电解质、白细胞趋势、并发症、医院监护能力和当地可用药物。所有液体、抗菌药、止吐、镇痛、营养及生物制剂均由执业兽医制定。</p></article>
+      <article class="card"><h2>能力边界</h2><div class="tag-row"><span class="tag">隔离路径</span><span class="tag">严重度判断</span><span class="tag">报告趋势</span><span class="tag">治疗闭环</span><span class="tag">门诊筛选</span><span class="tag">院感沟通</span></div><p class="disclaimer">教学提示：真实犬细小管理取决于患者灌注、持续丢失、血糖、电解质、白细胞趋势、并发症、医院监护能力和当地可用药物。所有液体、抗菌药、止吐、镇痛、营养及生物制剂均由执业兽医制定。</p></article>
     </section>
   `;
 
@@ -526,7 +688,7 @@
   }
 
   function updateProgress() {
-    const sectionProgress = Math.round((state.completedSections.size / 7) * 60);
+    const sectionProgress = Math.round((state.completedSections.size / 8) * 60);
     const completedCases = trainingCases.filter(item => state.caseResults[item.id]?.completed).length;
     const caseProgress = Math.round((completedCases / trainingCases.length) * 30);
     const checklistProgress = document.querySelectorAll('input[type="checkbox"]:checked').length ? 10 : 0;
