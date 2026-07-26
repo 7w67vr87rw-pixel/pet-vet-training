@@ -16,6 +16,7 @@
       <a href="index.html"><b>模块 01 · FLUTD</b>猫下泌尿道综合征</a>
       <a class="active" href="ckd.html"><b>模块 02 · CKD</b>猫慢性肾病</a>
       <a href="aki.html"><b>模块 03 · AKI</b>猫急性肾损伤</a>
+      <a href="cpv.html"><b>模块 04 · CPV</b>犬细小病毒性肠炎</a>
     </div>
 
     <div class="progress-box">
@@ -50,6 +51,10 @@
     </section>
 
     <section class="tabs" aria-label="内容分区">
+      <div class="tabs-guide">
+        <strong>学习流程</strong>
+        <span>共 7 个环节，建议依次完成</span>
+      </div>
       <button class="active" data-tab="overview">学习笔记</button>
       <button data-tab="path">分期路径</button>
       <button data-tab="checklist">问诊体检</button>
